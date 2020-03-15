@@ -5,7 +5,7 @@ const config: Configuration = {
   auth: {
     authority: window.MESMER_ENVIRONMENT['AUTH_AUTORITY'],
     clientId: window.MESMER_ENVIRONMENT['CLIENT_ID'],
-    redirectUri: window.location.pathname
+    redirectUri: window.location.href
   },
   cache: {
     cacheLocation: 'localStorage',
