@@ -1,0 +1,6 @@
+.timeline:hover .timeline-item {
+  opacity: .25;
+}
+.timeline .timeline-item:hover {
+  opacity: 1;
+}
