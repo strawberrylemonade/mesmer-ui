@@ -3,9 +3,9 @@ import { Configuration } from 'msal';
  
 const config: Configuration = {
   auth: {
-    authority: 'https://login.microsoftonline.com/6306a961-c48b-4f30-a998-e34f353dc0c3',
-    clientId: '3dccce73-06c4-4c9e-b762-a84c0e7416a0',
-    redirectUri: 'http://localhost:3000/'
+    authority: window.MESMER_ENVIRONMENT['AUTH_AUTORITY'],
+    clientId: window.MESMER_ENVIRONMENT['CLIENT_ID'],
+    redirectUri: window.location.pathname
   },
   cache: {
     cacheLocation: 'localStorage',

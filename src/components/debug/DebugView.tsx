@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import useWebSocket, { ReadyState } from 'react-use-websocket';
 import Layout from '../Layout';
-import { mesmerWSBaseUrl } from '../../services/client';
+import { WSBaseUrl } from '../../services/client';
 import { useParams } from 'react-router-dom';
 import { Event, Envionment } from '../types/environment';
 import DebugListItem from './DebugListItem';
@@ -27,7 +27,7 @@ const DebugView: React.FC = () => {
 
   const [events, setEvents] = useState<Event[]>([]);
   const [session, setSession] = useState();
-  const [sendMessage, lastMessage, readyState, getWebSocket] = useWebSocket(`${mesmerWSBaseUrl}/projects/${projectId}/environments/${environmentId}/debug/${debugId}`);
+  const [sendMessage, lastMessage, readyState, getWebSocket] = useWebSocket(`${WSBaseUrl}/projects/${projectId}/environments/${environmentId}/debug/${debugId}`);
 
   const [selectedEvent, setSelectedEvent] = useState<Event>();
 

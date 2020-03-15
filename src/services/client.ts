@@ -1,13 +1,12 @@
 import auth from '../helpers/auth';
 
-const mesmerAPIBaseUrl = 'http://localhost:4008/api';
-export const mesmerWSBaseUrl = 'ws://localhost:4008/api';
-
+export const APIBaseUrl = `https://${window.MESMER_ENVIRONMENT['BASE_URL']}`;
+export const WSBaseUrl = `ws://${window.MESMER_ENVIRONMENT['BASE_URL']}`;  
 
 export const get = async (path: string, headers: {[key: string]: any} = {}) => {
   const { idToken } = await auth.getIdToken();
 
-  const response = await fetch(mesmerAPIBaseUrl + path, {
+  const response = await fetch(APIBaseUrl + path, {
     headers: {
       'Accept': 'application/json',
       'Authorization': `Bearer ${idToken.rawIdToken}`,
@@ -22,7 +21,7 @@ export const get = async (path: string, headers: {[key: string]: any} = {}) => {
 export const post = async (path: string, data: {[key: string]: any} = {}) => {
   const { idToken } = await auth.getIdToken();
 
-  const response = await fetch(mesmerAPIBaseUrl + path, {
+  const response = await fetch(APIBaseUrl + path, {
     method: 'POST',
     mode: 'cors',
     headers: {
@@ -40,7 +39,7 @@ export const post = async (path: string, data: {[key: string]: any} = {}) => {
 export const put = async (path: string, data: {[key: string]: any}) => {
   const { idToken } = await auth.getIdToken();
 
-  const response = await fetch(mesmerAPIBaseUrl + path, {
+  const response = await fetch(APIBaseUrl + path, {
     method: 'PUT',
     mode: 'cors',
     headers: {
