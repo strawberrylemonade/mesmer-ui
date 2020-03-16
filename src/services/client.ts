@@ -1,7 +1,7 @@
 import auth from '../helpers/auth';
 
 export const APIBaseUrl = `https://${window.MESMER_ENVIRONMENT['BASE_URL']}`;
-export const WSBaseUrl = `ws://${window.MESMER_ENVIRONMENT['BASE_URL']}`;  
+export const WSBaseUrl = `wss://${window.MESMER_ENVIRONMENT['BASE_URL']}`;  
 
 export const get = async (path: string, headers: {[key: string]: any} = {}) => {
   const { idToken } = await auth.getIdToken();

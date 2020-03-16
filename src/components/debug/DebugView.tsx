@@ -78,7 +78,7 @@ const DebugView: React.FC = () => {
         <ul>
           { events.map((event) => (
             <li key={event.id} onClick={() => { setSelectedEvent(event) }}>
-              <DebugListItem event={event} selected={event.originalTimestamp === selectedEvent?.originalTimestamp}></DebugListItem>
+              <DebugListItem event={event} selected={`${event.originalTimestamp}-${selectedEvent?.name}` === `${selectedEvent?.originalTimestamp}-${event.name}`}></DebugListItem>
             </li>
           ))}
         </ul>
