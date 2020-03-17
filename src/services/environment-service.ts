@@ -9,6 +9,7 @@ export interface IEnvironment {
   environmentId: string
   name: string
   connection: string
+  slack: string
 }
 
 export const createEnvironment = async (projectId: string, environment: Partial<IEnvironment>) => {

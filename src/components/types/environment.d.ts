@@ -4,6 +4,8 @@ export interface Envionment {
   name: string
   project: string
   connection: string
+  tests: string[]
+  slack?: string
 }
 
 export interface Test {

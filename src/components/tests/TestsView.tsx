@@ -6,6 +6,7 @@ import { getProjects } from '../../services/project-service';
 import TestsCard from './TestsCard';
 
 import { Helmet } from 'react-helmet';
+import Spinner from '../shared/Spinner';
 
 const TestsView: React.FC = () => {
 
@@ -36,7 +37,7 @@ const TestsView: React.FC = () => {
     <main className="sm:px-8 max-w-7xl mx-auto md:py-8">
       { projects ? projects.map((project) => (
         <TestsCard key={project.id} project={project}></TestsCard>
-      )) : null }
+      )) : <Spinner></Spinner> }
     </main>
   </Layout>
 }

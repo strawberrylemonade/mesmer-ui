@@ -11,6 +11,8 @@ import { Helmet } from 'react-helmet';
 import { AzureAD } from 'react-aad-msal';
 import auth from './helpers/auth';
 
+import { transitions, positions, Provider as AlertProvider } from 'react-alert';
+
 import { ApplicationInsights, DistributedTracingModes } from '@microsoft/applicationinsights-web';
 import { ReactPlugin, withAITracking } from '@microsoft/applicationinsights-react-js';
 import { createBrowserHistory } from "history";
@@ -24,6 +26,8 @@ import TestsView from './components/tests/TestsView';
 import TestView from './components/tests/TestView';
 import NewTestView from './components/tests/NewTestView';
 import DebugView from './components/debug/DebugView';
+import ReportView from './components/report/ReportView';
+import Popup from './components/shared/Popup';
 
 const browserHistory = createBrowserHistory();
 
@@ -46,49 +50,63 @@ const appInsights = new ApplicationInsights({
 });
 appInsights.loadAppInsights();
 
+const options = {
+  // you can also just use 'bottom center'
+  position: positions.BOTTOM_CENTER,
+  timeout: 3000,
+  offset: '30px',
+  // you can also just use 'scale'
+  transition: transitions.FADE
+}
+
 function App() {
   return (
     <AzureAD provider={auth} forceLogin={true}>
-      <Router history={browserHistory}>
-        <Switch>
-          <Route path="/projects">
-            <Switch>
-              <Route path="/projects/:projectId/tests/new">
-                <NewTestView></NewTestView>
-              </Route>
-              <Route path="/projects/:projectId/tests/:testId">
-                <TestView></TestView>
-              </Route>
-              <Route path="/projects/:projectId/environments/:environmentId/debug/:debugId">
-                <DebugView></DebugView>
-              </Route>
-              <Route path="/projects/:projectId/environments/:environmentId">
-                <EnvionmentView></EnvionmentView>
-              </Route>
-              <Route path="/projects/:projectId/environments">
-                <ProjectView></ProjectView>
-              </Route>
-              <Route path="/projects/:projectId">
-                <ProjectView></ProjectView>
-              </Route>
-              <Route path="/projects">
-                <ProjectsView></ProjectsView>
-              </Route>
-            </Switch>
-          </Route>
-          <Route path="/tests">
-            <TestsView></TestsView>
-          </Route>
-          <Route path="/">
-            <Layout>
-              <Helmet>
-                <title>Mesmer</title>
-              </Helmet>
-              <Projects></Projects>
-            </Layout>
-          </Route>
-        </Switch>
-      </Router>
+      <AlertProvider template={Popup} {...options}>
+        <Router history={browserHistory}>
+          <Switch>
+            <Route path="/projects">
+              <Switch>
+                <Route path="/projects/:projectId/tests/new">
+                  <NewTestView></NewTestView>
+                </Route>
+                <Route path="/projects/:projectId/tests/:testId">
+                  <TestView></TestView>
+                </Route>
+                <Route path="/projects/:projectId/environments/:environmentId/reports/:reportId">
+                  <ReportView></ReportView>
+                </Route>
+                <Route path="/projects/:projectId/environments/:environmentId/debug/:debugId">
+                  <DebugView></DebugView>
+                </Route>
+                <Route path="/projects/:projectId/environments/:environmentId">
+                  <EnvionmentView></EnvionmentView>
+                </Route>
+                <Route path="/projects/:projectId/environments">
+                  <ProjectView></ProjectView>
+                </Route>
+                <Route path="/projects/:projectId">
+                  <ProjectView></ProjectView>
+                </Route>
+                <Route path="/projects">
+                  <ProjectsView></ProjectsView>
+                </Route>
+              </Switch>
+            </Route>
+            <Route path="/tests">
+              <TestsView></TestsView>
+            </Route>
+            <Route path="/">
+              <Layout>
+                <Helmet>
+                  <title>Mesmer</title>
+                </Helmet>
+                <Projects></Projects>
+              </Layout>
+            </Route>
+          </Switch>
+        </Router>
+      </AlertProvider>
     </AzureAD>
   );
 }
