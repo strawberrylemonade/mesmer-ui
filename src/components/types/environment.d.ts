@@ -1,4 +1,4 @@
-export interface Envionment {
+export interface Environment {
   id: string
   environmentId: string
   name: string

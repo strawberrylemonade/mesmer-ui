@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import Form, { FormState } from '../shared/Form';
 import FormDescription from '../shared/form-elements/FormDescription';
-import { Envionment } from '../types/environment';
+import { Environment } from '../types/environment';
 import FormSelectField, { Option } from '../shared/form-elements/FormSelectField';
 import { getOrganisations, getBots, getBot } from '../../services/talksuite-service';
 import { MissingParameterError } from '../../helpers/errors';
@@ -9,7 +9,7 @@ import { updateEnvironment } from '../../services/environment-service';
 import TalksuiteAuthenticatedFormModal from '../shared/TalksuiteAuthenticatedFormModal';
 
 type LinkEnvironmentToBotModalProps = {
-  environment: Envionment
+  environment: Environment
   dismiss: () => void
   confirm: () => void
 }
@@ -17,7 +17,7 @@ type LinkEnvironmentToBotModalProps = {
 const LinkEnvironmentToBotModal: React.FC<LinkEnvironmentToBotModalProps> = ({ dismiss, confirm, environment }) => {
 
   const [formState, setFormState] = useState<FormState>(FormState.Disabled);
-  const [submittionError, setSubmittionError] = useState<string>();
+  const [submissionError, setSubmissionError] = useState<string>();
 
   const [organisationOptions, setOrganisationOptions] = useState<Option[]>([])
   const [botOptions, setBotOptions] = useState<Option[]>([])
@@ -52,12 +52,12 @@ const LinkEnvironmentToBotModal: React.FC<LinkEnvironmentToBotModalProps> = ({ d
     } catch (e) {
       if (e instanceof MissingParameterError) {
         setFormState(FormState.Invalid)
-        setSubmittionError(e.message)
+        setSubmissionError(e.message)
         return;
       }
 
       setFormState(FormState.Failed);
-      setSubmittionError(e.message);
+      setSubmissionError(e.message);
     }  
   }
 
@@ -65,7 +65,7 @@ const LinkEnvironmentToBotModal: React.FC<LinkEnvironmentToBotModalProps> = ({ d
   return <TalksuiteAuthenticatedFormModal dismiss={dismiss} confirm={confirm}>
     { (accessToken) => {
       setAccessToken(accessToken);
-      return <Form cancel={dismiss} submit={onLink} state={formState} error={submittionError}>
+      return <Form cancel={dismiss} submit={onLink} state={formState} error={submissionError}>
         { (handleChange) => (
           <>
             <FormDescription>{`Please select the bot you want to connect to "${environment.name}". Please note this will NOT automatically import the required libraries.`}</FormDescription>

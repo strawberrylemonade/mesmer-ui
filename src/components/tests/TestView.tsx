@@ -20,7 +20,7 @@ import Button from '../shared/Button';
 const TestView: React.FC = () => {
 
   const [formState, setFormState] = useState<FormState>(FormState.Idle);
-  const [submittionError, setSubmittionError] = useState<string>();
+  const [submissionError, setSubmissionError] = useState<string>();
 
   const [project, setProject] = useState<Project>()
   const [test, setTest] = useState<Test>()
@@ -51,12 +51,12 @@ const TestView: React.FC = () => {
       } catch (e) {
         if (e instanceof MissingParameterError) {
           setFormState(FormState.Invalid)
-          setSubmittionError(e.message)
+          setSubmissionError(e.message)
           return;
         }
 
         setFormState(FormState.Failed);
-        setSubmittionError(e.message);
+        setSubmissionError(e.message);
       }
 
     })()
@@ -67,7 +67,7 @@ const TestView: React.FC = () => {
       <title>{`Mesmer | Edit ${test ? `"${test.name}"` : 'Test'}`}</title>
     </Helmet>
     <SkeletonTheme color="#ffe3e317" highlightColor="#ffffff29">
-    <div className="py-8 bg-gray-800">
+    <div className="py-8 bg-mesmer-800">
       <div className="px-8 max-w-7xl mx-auto">
         <Breadcrumbs routes={[{ name: 'Tests', route: '/tests' }, { name: project?.name, route: project?.id ? `/projects/${project.id}` : undefined }]}></Breadcrumbs>
         <div className="mt-2 flex items-center justify-between">
@@ -77,7 +77,7 @@ const TestView: React.FC = () => {
             </h2>
           </div>
           <div className="flex-shrink-0 flex md:mt-0 md:ml-4">
-            <Button colour="indigo" onClick={() => {}}>Run</Button>
+            <Button colour="mesmer" onClick={() => {}}>Run</Button>
           </div>
         </div>
       </div>
@@ -86,13 +86,13 @@ const TestView: React.FC = () => {
     <main className="sm:px-8 max-w-7xl mx-auto md:py-8">
       <Card>
         {
-          test ? <Form cancel={() => { history.goBack() }} submit={handleSubmit} state={formState} error={submittionError}>
+          test ? <Form cancel={() => { history.goBack() }} submit={handleSubmit} state={formState} error={submissionError}>
             {(onChange) => (
               <div className="px-5">
                 <FormTextField name="Name" initial={test.name} onChange={(value) => {onChange('name', value)}}></FormTextField>
                 <FormTextField name="Target duration" initial={test.targetDuration} hint="This is the amount of seconds you would find acceptable for this particular test to run. If the conversation takes longer than this, the result will be rated Poor." onChange={(value) => {onChange('targetDuration', value)}}></FormTextField>
                 <FormTextField name="Maximum time" initial={test.maxDuration} hint="This is the amount of seconds you would consider the maximum elapsed time for this test. If the conversation takes longer than this, the result will be rated as Failed." onChange={(value) => {onChange('maxDuration', value)}}></FormTextField>
-                <FormJSONField name="Configuration" initial={test.steps} hint={<><>This is the JSON configuration for the steps for this test. </><a target="_blank" className="text-indigo-700" href="https://google.com">See here for documentation and advice.</a></>} onChange={(value) => {onChange('steps', value)}}></FormJSONField>
+                <FormJSONField name="Configuration" initial={test.steps} hint={<><>This is the JSON configuration for the steps for this test. </><a target="_blank" className="text-mesmer-700" href="https://google.com">See here for documentation and advice.</a></>} onChange={(value) => {onChange('steps', value)}}></FormJSONField>
               </div>
             )}
           </Form> : null

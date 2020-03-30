@@ -18,7 +18,7 @@ import { MissingParameterError } from '../../helpers/errors';
 const NewTestView: React.FC = () => {
 
   const [formState, setFormState] = useState<FormState>(FormState.Idle);
-  const [submittionError, setSubmittionError] = useState<string>();
+  const [submissionError, setSubmissionError] = useState<string>();
   const history = useHistory();
 
   const [project, setProject] = useState<Project>()
@@ -45,12 +45,12 @@ const NewTestView: React.FC = () => {
       } catch (e) {
         if (e instanceof MissingParameterError) {
           setFormState(FormState.Invalid)
-          setSubmittionError(e.message)
+          setSubmissionError(e.message)
           return;
         }
 
         setFormState(FormState.Failed);
-        setSubmittionError(e.message);
+        setSubmissionError(e.message);
       }
 
     })()
@@ -61,7 +61,7 @@ const NewTestView: React.FC = () => {
       <title>{`Mesmer | New Test`}</title>
     </Helmet>
     <SkeletonTheme color="#ffe3e317" highlightColor="#ffffff29">
-    <div className="py-8 bg-gray-800">
+    <div className="py-8 bg-mesmer-800">
       <div className="px-8 max-w-7xl mx-auto">
         <Breadcrumbs routes={[{ name: 'Tests', route: '/tests' }, { name: project?.name, route: project?.id ? `/projects/${project.id}` : undefined }]}></Breadcrumbs>
         <div className="mt-2 flex items-center justify-between">
@@ -76,13 +76,13 @@ const NewTestView: React.FC = () => {
     </SkeletonTheme>
     <main className="sm:px-8 max-w-7xl mx-auto md:py-8">
       <Card>
-        <Form cancel={() => { history.goBack() }} submit={handleSubmit} state={formState} error={submittionError}>
+        <Form cancel={() => { history.goBack() }} submit={handleSubmit} state={formState} error={submissionError}>
           {(onChange) => (
             <div className="px-5">
               <FormTextField name="Name" onChange={(value) => {onChange('name', value)}}></FormTextField>
               <FormTextField name="Target duration" hint="This is the amount of seconds you would find acceptable for this particular test to run. If the conversation takes longer than this, the result will be rated Poor." onChange={(value) => {onChange('targetDuration', value)}}></FormTextField>
               <FormTextField name="Maximum time" hint="This is the amount of seconds you would consider the maximum elapsed time for this test. If the conversation takes longer than this, the result will be rated as Failed." onChange={(value) => {onChange('maxDuration', value)}}></FormTextField>
-              <FormJSONField initial={[]} name="Configuration" hint={<><>This is the JSON configuration for the steps for this test. </><a target="_blank" className="text-indigo-700" href="https://google.com">See here for documentation and advice.</a></>} onChange={(value) => {onChange('steps', value)}}></FormJSONField>
+              <FormJSONField initial={[]} name="Configuration" hint={<><>This is the JSON configuration for the steps for this test. </><a target="_blank" className="text-mesmer-700" href="https://google.com">See here for documentation and advice.</a></>} onChange={(value) => {onChange('steps', value)}}></FormJSONField>
             </div>
           )}
         </Form>

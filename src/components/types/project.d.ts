@@ -1,8 +1,8 @@
-import Envionment from "../environments/EnvironmentView";
+import Environment from "../environments/EnvironmentView";
 
 export interface Project {
   id: string,
   name: string
 
-  environments?: Envionment[]
+  environments?: Environment[]
 }

@@ -16,7 +16,7 @@ import Button from '../shared/Button';
 import EnvironmentStatusCard from '../uptime/EnvironmentStatusCard';
 import { getEnvironment, updateEnvironment } from '../../services/environment-service';
 import { getProject } from '../../services/project-service';
-import { Envionment } from '../types/environment';
+import { Environment } from '../types/environment';
 import { Project } from '../types/project';
 import { createDebugSession } from '../../services/debug-service';
 import DeleteEnvironmentModal from './DeleteEnvironmentModal';
@@ -30,9 +30,11 @@ import { getRecentReport, IReport } from '../../services/report-service';
 import Spinner from '../shared/Spinner';
 import { useAlert } from 'react-alert';
 
-const EnvionmentView: React.FC = () => {
+import NotConnectedImage from '../../assets/binoculus.svg';
 
-  const [environment, setEnvironment] = useState<Envionment>()
+const EnvironmentView: React.FC = () => {
+
+  const [environment, setEnvironment] = useState<Environment>()
   const [project, setProject] = useState<Project>()
   const [report, setReport] = useState<IReport>()
   const [alerts, setAlerts] = useState<IReport[]>()
@@ -84,12 +86,27 @@ const EnvionmentView: React.FC = () => {
             )) }
           </div>
         </Card> : null }
-        <Card title="Timeline">
-          <UptimeTimeline environment={environment}></UptimeTimeline>
-        </Card>
-        <ReportCard report={report}></ReportCard>
+        { environment && !environment.connection ? <Card title="Hey there!" actions={
+          <Button colour="mesmer" onClick={() => {setShowLinkModal(true)}}>Link to bot</Button>
+        }>
+          <div className="flex flex-col-reverse sm:flex-row">
+            <img className="-mb-2" src={NotConnectedImage}></img>
+            <div className="px-5 flex flex-col justify-center text-sm leading-5 text-gray-500">
+              <h3 className="text-lg leading-6 font-medium text-gray-900 mb-2">Congratulations on your new environment!</h3>
+              <p>Before we can keep an eye on your bot, we need you to tell us where to point our binoculars at. Once you've linked your bot, you can start running tests, starting debug sessions and collecting usage analytics.</p>
+              <p>If you need a hand you can always head to the <a className="font-medium" href="https://www.notion.so/Help-Center-cc37013b9e9f40aca897bd70cf44ad7a">documentation</a>.</p>
+            </div>
+          </div>
+        </Card>: null }
+        { environment?.connection ? 
+        <>
+          <Card title="Timeline">
+            <UptimeTimeline environment={environment}></UptimeTimeline>
+          </Card>
+          <ReportCard report={report}></ReportCard>
+        </> : null }
       </div>
-      <div className="w-full sm:w-64 sm:ml-4 grid sm:gap-4 gap-2 h-fit mb-2">
+      <div className="w-full sm:min-w-64 sm:w-64 sm:ml-4 grid sm:gap-4 gap-2 h-fit mb-2">
         <SkeletonTheme color="#ffe3e317" highlightColor="#ffffff29">
           <EnvironmentStatusCard environment={environment}></EnvironmentStatusCard>
         </SkeletonTheme>
@@ -146,4 +163,4 @@ const EnvionmentView: React.FC = () => {
   </Layout>
 }
 
-export default EnvionmentView;
+export default EnvironmentView;

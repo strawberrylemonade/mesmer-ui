@@ -3,7 +3,7 @@ import Modal from '../shared/Modal';
 import Form, { FormState } from '../shared/Form';
 import FormTitle from '../shared/form-elements/FormTitle';
 import FormDescription from '../shared/form-elements/FormDescription';
-import { Envionment, Test } from '../types/environment';
+import { Environment, Test } from '../types/environment';
 import { MissingParameterError } from '../../helpers/errors';
 import { getTests } from '../../services/test-service';
 import FormCheckboxesField, { CheckboxOption } from '../shared/form-elements/FormCheckboxesField';
@@ -11,7 +11,7 @@ import Spinner from '../../components/shared/Spinner';
 import { updateEnvironment } from '../../services/environment-service';
 
 type ManageTestsModalProps = {
-  environment: Envionment
+  environment: Environment
   dismiss: () => void
   confirm: () => void
 }
@@ -19,7 +19,7 @@ type ManageTestsModalProps = {
 const ManageTestsModal: React.FC<ManageTestsModalProps> = ({ dismiss, confirm, environment }) => {
 
   const [formState, setFormState] = useState<FormState>(FormState.Disabled);
-  const [submittionError, setSubmittionError] = useState<string>();
+  const [submissionError, setSubmissionError] = useState<string>();
 
   const [tests, setTests] = useState<CheckboxOption[]>();
 
@@ -41,18 +41,18 @@ const ManageTestsModal: React.FC<ManageTestsModalProps> = ({ dismiss, confirm, e
     } catch (e) {
       if (e instanceof MissingParameterError) {
         setFormState(FormState.Invalid)
-        setSubmittionError(e.message)
+        setSubmissionError(e.message)
         return;
       }
 
       setFormState(FormState.Failed);
-      setSubmittionError(e.message);
+      setSubmissionError(e.message);
     }  
   }
 
   
   return <Modal onDismiss={dismiss}>
-    <Form cancel={dismiss} submit={saveTests} state={formState} confirmMessage="Save" error={submittionError}>
+    <Form cancel={dismiss} submit={saveTests} state={formState} confirmMessage="Save" error={submissionError}>
       { (handleChange) => (
         <>
           <FormTitle>Assign tests for uptime</FormTitle>

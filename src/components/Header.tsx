@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, NavLink } from 'react-router-dom';
 
 import mesmerLogoLong from '../assets/mesmer-long.png';
 import mesmerLogoSmall from '../assets/mesmer-small.png';
@@ -26,15 +26,15 @@ const Header: React.FC = () => {
             <img className="hidden lg:block h-8 w-auto" src={mesmerLogoLong} alt="" />
           </Link>
           <div className="hidden sm:-my-px sm:ml-6 sm:flex">
-            <Link to="/projects" className="inline-flex items-center px-1 pt-1 border-b-2 border-indigo-500 text-sm font-medium leading-5 text-gray-900 focus:outline-none focus:border-indigo-700 transition duration-150 ease-in-out">
+            <NavLink isActive={(match, location) => !location.pathname.includes('/tests')} to="/projects" activeClassName="border-mesmer-500 focus:border-mesmer-700" className="inline-flex items-center px-1 pt-1 border-b-2 border-transparent text-sm font-medium leading-5 text-gray-500 hover:text-gray-700 hover:border-gray-300 focus:outline-none focus:text-gray-700 focus:border-gray-300 transition duration-150 ease-in-out">
               Projects
-            </Link>
-            <Link to="/tests" className="ml-8 inline-flex items-center px-1 pt-1 border-b-2 border-transparent text-sm font-medium leading-5 text-gray-500 hover:text-gray-700 hover:border-gray-300 focus:outline-none focus:text-gray-700 focus:border-gray-300 transition duration-150 ease-in-out">
+            </NavLink>
+            <NavLink isActive={(match, location) => location.pathname.includes('/tests')} to="/tests" activeClassName="border-mesmer-500 focus:border-mesmer-700" className="ml-8 inline-flex items-center px-1 pt-1 border-b-2 border-transparent text-sm font-medium leading-5 text-gray-500 hover:text-gray-700 hover:border-gray-300 focus:outline-none focus:text-gray-700 focus:border-gray-300 transition duration-150 ease-in-out">
               Tests
-            </Link>
-            <Link to="/" className="ml-8 inline-flex items-center px-1 pt-1 border-b-2 border-transparent text-sm font-medium leading-5 text-gray-500 hover:text-gray-700 hover:border-gray-300 focus:outline-none focus:text-gray-700 focus:border-gray-300 transition duration-150 ease-in-out">
-              Debug
-            </Link>
+            </NavLink>
+            <a href={window.MESMER_ENVIRONMENT['METABASE_LINK']} target="_blank" className="ml-8 inline-flex items-center px-1 pt-1 border-b-2 border-transparent text-sm font-medium leading-5 text-gray-500 hover:text-gray-700 hover:border-gray-300 focus:outline-none focus:text-gray-700 focus:border-gray-300 transition duration-150 ease-in-out">
+              Analytics
+            </a>
             <a href="https://www.notion.so/Help-Center-cc37013b9e9f40aca897bd70cf44ad7a" target="_blank" className="ml-8 inline-flex items-center px-1 pt-1 border-b-2 border-transparent text-sm font-medium leading-5 text-gray-500 hover:text-gray-700 hover:border-gray-300 focus:outline-none focus:text-gray-700 focus:border-gray-300 transition duration-150 ease-in-out">
               Docs
             </a>
@@ -49,8 +49,8 @@ const Header: React.FC = () => {
           <div className="ml-3 relative">
             <div>
               <button onClick={() => { setDropDownState(dropDownState === DropDownState.Open ? DropDownState.Closed : DropDownState.Open) }} className="flex text-sm border-2 border-transparent rounded-full focus:outline-none focus:border-gray-300 transition duration-150 ease-in-out">
-              <div className="h-10 w-10 rounded-full bg-indigo-300 flex items-center justify-center">
-                <h3 className="text-lg font-bold text-indigo-600">
+              <div className="h-10 w-10 rounded-full bg-mesmer-300 flex items-center justify-center">
+                <h3 className="text-lg font-bold text-mesmer-600">
                   { user.name.slice(0, 1) }
                 </h3>
               </div>
@@ -75,16 +75,16 @@ const Header: React.FC = () => {
     </div>
     <div className={`${dropDownState === DropDownState.Closed ? 'hidden' : ''} sm:hidden`}>
       <div className="pt-2 pb-3">
-        <Link to="/projects" className="block pl-3 pr-4 py-2 border-l-4 border-indigo-500 text-base font-medium text-indigo-700 bg-indigo-50 focus:outline-none focus:text-indigo-800 focus:bg-indigo-100 focus:border-indigo-700 transition duration-150 ease-in-out">Projects</Link>
-        <Link to="/tests" className="mt-1 block pl-3 pr-4 py-2 border-l-4 border-transparent text-base font-medium text-gray-600 hover:text-gray-800 hover:bg-gray-50 hover:border-gray-300 focus:outline-none focus:text-gray-800 focus:bg-gray-50 focus:border-gray-300 transition duration-150 ease-in-out">Tests</Link>
-        <Link to="/" className="mt-1 block pl-3 pr-4 py-2 border-l-4 border-transparent text-base font-medium text-gray-600 hover:text-gray-800 hover:bg-gray-50 hover:border-gray-300 focus:outline-none focus:text-gray-800 focus:bg-gray-50 focus:border-gray-300 transition duration-150 ease-in-out">Debug</Link>
+        <NavLink to="/projects" activeClassName="border-mesmer-500 text-mesmer-700" className="block pl-3 pr-4 py-2 border-l-4 border-transparent text-base font-medium text-gray-600 hover:text-gray-800 hover:bg-gray-50 hover:border-gray-300 focus:outline-none focus:text-gray-800 focus:bg-gray-50 focus:border-gray-300 transition duration-150 ease-in-out">Projects</NavLink>
+        <NavLink to="/tests" activeClassName="border-mesmer-500 text-mesmer-700" className="mt-1 block pl-3 pr-4 py-2 border-l-4 border-transparent text-base font-medium text-gray-600 hover:text-gray-800 hover:bg-gray-50 hover:border-gray-300 focus:outline-none focus:text-gray-800 focus:bg-gray-50 focus:border-gray-300 transition duration-150 ease-in-out">Tests</NavLink>
+        <a href={window.MESMER_ENVIRONMENT['METABASE_LINK']} className="mt-1 block pl-3 pr-4 py-2 border-l-4 border-transparent text-base font-medium text-gray-600 hover:text-gray-800 hover:bg-gray-50 hover:border-gray-300 focus:outline-none focus:text-gray-800 focus:bg-gray-50 focus:border-gray-300 transition duration-150 ease-in-out">Debug</a>
         <a href="https://www.notion.so/Help-Center-cc37013b9e9f40aca897bd70cf44ad7a" className="mt-1 block pl-3 pr-4 py-2 border-l-4 border-transparent text-base font-medium text-gray-600 hover:text-gray-800 hover:bg-gray-50 hover:border-gray-300 focus:outline-none focus:text-gray-800 focus:bg-gray-50 focus:border-gray-300 transition duration-150 ease-in-out">Docs</a>
       </div>
       <div className="pt-4 pb-3 border-t border-gray-200">
         <div className="flex items-center px-4">
           <div className="flex-shrink-0">
-            <div className="h-10 w-10 rounded-full bg-indigo-300 flex items-center justify-center">
-              <h3 className="text-lg font-bold text-indigo-600">
+            <div className="h-10 w-10 rounded-full bg-mesmer-300 flex items-center justify-center">
+              <h3 className="text-lg font-bold text-mesmer-600">
                 { user.name.slice(0, 1) }
               </h3>
             </div>

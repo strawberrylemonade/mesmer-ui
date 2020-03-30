@@ -3,7 +3,7 @@ import { Project } from '../types/project';
 import Skeleton from 'react-loading-skeleton';
 import { Link } from 'react-router-dom';
 import { getEnvironments } from '../../services/environment-service';
-import { Envionment } from '../types/environment';
+import { Environment } from '../types/environment';
 import Model, { ModalState } from '../shared/Modal';
 import ListItem from '../shared/list-elements/ListItem';
 import NewEnvironmentForm from '../environments/NewEnvironmentForm';
@@ -16,14 +16,14 @@ type ProjectCardProps = {
 
 const ProjectCard: React.FC<ProjectCardProps> = ({ project }) => {
 
-  const [envionments, setEnvionments] = useState<Envionment[]>()
+  const [Environments, setEnvironments] = useState<Environment[]>()
   const [modalState, setModalState] = useState<ModalState>(ModalState.Closed);
 
   useEffect(() => {
     (async () => {
       if(!project) return;
-      const envionments = await getEnvironments(project.id);
-      setEnvionments(envionments);
+      const Environments = await getEnvironments(project.id);
+      setEnvironments(Environments);
     })()
   }, [project])
 
@@ -33,15 +33,15 @@ const ProjectCard: React.FC<ProjectCardProps> = ({ project }) => {
     </Model> : null }
       <List title={project?.name} link={`/projects/${project?.id}`} actions={
         <>
-          <Button colour="indigo" onClick={() => setModalState(ModalState.Open)}>New environment</Button>
+          <Button colour="mesmer" onClick={() => setModalState(ModalState.Open)}>New environment</Button>
           <Button colour="red" onClick={() => {}}>Delete</Button>
         </>
       }>
-        { (envionments && project) ? envionments.map((environment) => (
+        { (Environments && project) ? Environments.map((environment) => (
           <Link key={environment.environmentId} to={`/projects/${project.id}/environments/${environment.environmentId}`}>
             <ListItem>
               <div>
-                <div className="text-md leading-5 font-medium text-indigo-600 truncate">
+                <div className="text-md leading-5 font-medium text-mesmer-600 truncate">
                   {environment.name}
                 </div>
                 <div className="mt-2 flex">
@@ -64,7 +64,7 @@ const ProjectCard: React.FC<ProjectCardProps> = ({ project }) => {
           </Link>
         )) : <ListItem>
           <div>
-            <div className="text-md leading-5 font-medium text-indigo-600 truncate">
+            <div className="text-md leading-5 font-medium text-mesmer-600 truncate">
               <Skeleton width={100}></Skeleton>
             </div>
             <div className="mt-2 flex">

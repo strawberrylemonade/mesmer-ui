@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import Skeleton from 'react-loading-skeleton';
-import { Envionment } from '../types/environment';
+import { Environment } from '../types/environment';
 
 type EnvironmentStatusCardProps = {
-  environment?: Envionment
+  environment?: Environment
 }
 
-enum EnvionmentStatus {
+enum EnvironmentStatus {
   Loading = 'Loading',
   Unknown = 'Unknown',
   Unlinked = 'Unlinked',
@@ -15,18 +15,18 @@ enum EnvionmentStatus {
   Bad = 'Bad'
 }
 
-function getColourForStatus(status: EnvionmentStatus) {
+function getColourForStatus(status: EnvironmentStatus) {
   switch (status) {
-    case EnvionmentStatus.Loading:
-    case EnvionmentStatus.Unknown:
+    case EnvironmentStatus.Loading:
+    case EnvironmentStatus.Unknown:
       return 'gray-600'
-    case EnvionmentStatus.Unlinked:
+    case EnvironmentStatus.Unlinked:
       return 'gray-600'
-    case EnvionmentStatus.Good:
-      return 'indigo-600'
-    case EnvionmentStatus.Poor:
+    case EnvironmentStatus.Good:
+      return 'mesmer-600'
+    case EnvironmentStatus.Poor:
       return 'poor-orange'
-    case EnvionmentStatus.Bad:
+    case EnvironmentStatus.Bad:
       return 'red-500'
     default:
       break;
@@ -36,13 +36,13 @@ function getColourForStatus(status: EnvionmentStatus) {
 
 const EnvironmentStatusCard: React.FC<EnvironmentStatusCardProps> = ( { environment }) => {
 
-  const [environmentStatus, setEnvironmentStatus] = useState<EnvionmentStatus>(EnvionmentStatus.Loading)
+  const [environmentStatus, setEnvironmentStatus] = useState<EnvironmentStatus>(EnvironmentStatus.Loading)
 
   useEffect(() => {
     if (!environment) return;
-    if (!environment.connection) { setEnvironmentStatus(EnvionmentStatus.Unlinked); return; }
+    if (!environment.connection) { setEnvironmentStatus(EnvironmentStatus.Unlinked); return; }
     setTimeout(() => {
-      setEnvironmentStatus(EnvionmentStatus.Good)
+      setEnvironmentStatus(EnvironmentStatus.Good)
     }, 400);
   }, [environment])
 
@@ -51,7 +51,7 @@ const EnvironmentStatusCard: React.FC<EnvironmentStatusCardProps> = ( { environm
       Status
     </h3>
     <h3 className="h-12 text-4xl py-2 leading-8 font-bold text-white">
-      { (environmentStatus && environmentStatus !== EnvionmentStatus.Loading) ? environmentStatus : <Skeleton width={100}></Skeleton> }
+      { (environmentStatus && environmentStatus !== EnvironmentStatus.Loading) ? environmentStatus : <Skeleton width={100}></Skeleton> }
     </h3>
   </div>
 }

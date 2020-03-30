@@ -17,7 +17,7 @@ const Alert: React.FC = () => {
       </div>
       <div className="mt-5 flex justify-center sm:justify-right">
         <span>
-          <Button colour="indigo">See report</Button>
+          <Button colour="mesmer">See report</Button>
           <Button>Dismiss</Button>
         </span>
       </div>

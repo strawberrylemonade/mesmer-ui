@@ -22,7 +22,7 @@ const EnvironmentNavigation: React.FC<EnvironmentNavigationProps> = ({ project, 
   if (project) { crumbs.push({ name: project.name, route: `/projects/${project.id}`}); } else { crumbs.push({}) }
   
   return <SkeletonTheme color="#ffe3e317" highlightColor="#ffffff29">
-    <div className="py-8 bg-gray-800 pb-28">
+    <div className="py-8 bg-mesmer-800 pb-28">
       <div className="px-8 max-w-7xl mx-auto">
         <Breadcrumbs routes={crumbs}></Breadcrumbs>
         <div className="mt-2 md:flex md:items-center md:justify-between">

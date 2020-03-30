@@ -3,7 +3,8 @@ import {
   Router,
   Switch,
   Route,
-  Link
+  Link,
+  Redirect
 } from 'react-router-dom';
 
 import { Helmet } from 'react-helmet';
@@ -17,7 +18,7 @@ import { ApplicationInsights, DistributedTracingModes } from '@microsoft/applica
 import { ReactPlugin, withAITracking } from '@microsoft/applicationinsights-react-js';
 import { createBrowserHistory } from "history";
 
-import EnvionmentView from './components/environments/EnvironmentView';
+import EnvironmentView from './components/environments/EnvironmentView';
 import ProjectView from './components/projects/ProjectView';
 import ProjectsView from './components/projects/ProjectsView';
 import Layout from './components/Layout';
@@ -80,7 +81,7 @@ function App() {
                   <DebugView></DebugView>
                 </Route>
                 <Route path="/projects/:projectId/environments/:environmentId">
-                  <EnvionmentView></EnvionmentView>
+                  <EnvironmentView></EnvironmentView>
                 </Route>
                 <Route path="/projects/:projectId/environments">
                   <ProjectView></ProjectView>
@@ -96,14 +97,7 @@ function App() {
             <Route path="/tests">
               <TestsView></TestsView>
             </Route>
-            <Route path="/">
-              <Layout>
-                <Helmet>
-                  <title>Mesmer</title>
-                </Helmet>
-                <Projects></Projects>
-              </Layout>
-            </Route>
+            <Redirect exact path="/" to="/projects"></Redirect>
           </Switch>
         </Router>
       </AlertProvider>

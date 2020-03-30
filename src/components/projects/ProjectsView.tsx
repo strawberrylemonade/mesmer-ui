@@ -19,7 +19,7 @@ const ProjectsView: React.FC = () => {
     { newProjectModalState === ModalState.Open ? <Model onDismiss={() => setNewProjectModalState(ModalState.Closed)}>
       <NewProjectForm dismiss={() => setNewProjectModalState(ModalState.Closed)} reload={() => { window.location.reload() }}></NewProjectForm>
     </Model> : null }
-    <div className="py-8 bg-gray-800">
+    <div className="py-8 bg-mesmer-800">
       <div className="px-8 max-w-7xl mx-auto">
         <div className="mt-2 flex items-center justify-between">
           <div className="flex-1 min-w-0">
@@ -28,7 +28,7 @@ const ProjectsView: React.FC = () => {
             </h2>
           </div>
           <div className="flex-shrink-0 flex md:mt-0 md:ml-4">
-            <Button colour="indigo" onClick={() => setNewProjectModalState(ModalState.Open)}>New project</Button>
+            <Button colour="mesmer" onClick={() => setNewProjectModalState(ModalState.Open)}>New project</Button>
           </div>
         </div>
       </div>

@@ -39,7 +39,7 @@ const FormCheckboxesField: React.FC<FormCheckboxesFieldProps> = ({ name, values 
         <div className="mt-4" key={item.id}>
           <div className="relative flex items-start">
             <div className="absolute flex items-center h-5">
-              <input id="comments" type="checkbox" checked={item.checked} onChange={(event) => { handleChange(item, event) }} className="form-checkbox h-4 w-4 text-indigo-600 transition duration-150 ease-in-out" />
+              <input id="comments" type="checkbox" checked={item.checked} onChange={(event) => { handleChange(item, event) }} className="form-checkbox h-4 w-4 text-mesmer-600 transition duration-150 ease-in-out" />
             </div>
             <div className="pl-7 text-sm leading-5">
               <label className="font-medium text-gray-700">{item.name}</label>

@@ -23,7 +23,7 @@ const TestsView: React.FC = () => {
     <Helmet>
       <title>{`Mesmer | Tests`}</title>
     </Helmet>
-    <div className="py-8 bg-gray-800">
+    <div className="py-8 bg-mesmer-800">
       <div className="px-8 max-w-7xl mx-auto">
         <div className="mt-2 flex items-center justify-between">
           <div className="flex-1 min-w-0">

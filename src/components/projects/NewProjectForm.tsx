@@ -17,7 +17,7 @@ interface NewProjectForm {
 const NewProjectForm: React.FC<NewProjectForm> = ( { dismiss, reload }) => {
 
   const [formState, setFormState] = useState<FormState>(FormState.Idle);
-  const [submittionError, setSubmittionError] = useState<string>();
+  const [submissionError, setSubmissionError] = useState<string>();
 
   const handleSubmit = (result: {[key: string]: any}) => {
     (async () => {
@@ -31,17 +31,17 @@ const NewProjectForm: React.FC<NewProjectForm> = ( { dismiss, reload }) => {
       } catch (e) {
         if (e instanceof MissingParameterError) {
           setFormState(FormState.Invalid)
-          setSubmittionError(e.message)
+          setSubmissionError(e.message)
           return;
         }
 
         setFormState(FormState.Failed);
-        setSubmittionError(e.message);
+        setSubmissionError(e.message);
       }  
     })()
   }
 
-  return <Form cancel={dismiss} submit={handleSubmit} state={formState} error={submittionError}>
+  return <Form cancel={dismiss} submit={handleSubmit} state={formState} error={submissionError}>
     {(onChange) => (
       <>
         <FormTitle>New project</FormTitle>

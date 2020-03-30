@@ -2,14 +2,15 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 
 enum ButtonColour {
-  indigo = 'indigo-600',
+  mesmer = 'mesmer-600',
   red = 'red-500',
   gray = 'gray-600',
-  white = 'white'
+  white = 'white',
+  indigo = 'indigo-600'
 }
 
 type ButtonProps = {
-  colour?: 'indigo' | 'gray' | 'red' | 'white'
+  colour?: 'mesmer' | 'gray' | 'red' | 'white' | 'indigo'
   to?: string
   onClick?: () => void
 }

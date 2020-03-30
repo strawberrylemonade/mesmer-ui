@@ -29,13 +29,13 @@ const TestsCard: React.FC<TestsCardProps> = ({ project }) => {
 
   return <>
       <List title={project?.name} link={`/projects/${project?.id}/tests`} actions={
-        <Button colour="indigo" to={`/projects/${project?.id}/tests/new`}>New test</Button>
+        <Button colour="mesmer" to={`/projects/${project?.id}/tests/new`}>New test</Button>
       }>
         { (tests && project) ? tests.map((test) => (
           <Link key={test.id} to={`/projects/${project.id}/tests/${test.testId}`}>
             <ListItem>
               <div>
-                <div className="text-md leading-5 font-medium text-indigo-600 truncate">
+                <div className="text-md leading-5 font-medium text-mesmer-600 truncate">
                   {test.name}
                 </div>
                 <div className="mt-2 flex">
@@ -58,7 +58,7 @@ const TestsCard: React.FC<TestsCardProps> = ({ project }) => {
           </Link>
         )) : <ListItem>
           <div>
-            <div className="text-md leading-5 font-medium text-indigo-600 truncate">
+            <div className="text-md leading-5 font-medium text-mesmer-600 truncate">
               <Skeleton width={100}></Skeleton>
             </div>
             <div className="mt-2 flex">

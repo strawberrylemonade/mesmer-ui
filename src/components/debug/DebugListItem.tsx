@@ -7,6 +7,7 @@ interface DebugListItemProps {
   // Metadata
   selected: boolean
   event: Event
+  onClick: () => void
 }
 
 export enum EventType {
@@ -27,7 +28,7 @@ export const getTagForEventType = (type: EventType) => {
         Log
       </span>
     case EventType.Error:
-      return <span className="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-red-100 text-red-800">
+      return <span className="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-red-100 text-red-600">
         Error
       </span>
     default:
@@ -72,14 +73,14 @@ export const getEventTypeForName = (type: string) => {
   }
 }
 
-const DebugListItem: React.FC<DebugListItemProps> = ({ selected, event }) => {
+const DebugListItem: React.FC<DebugListItemProps> = ({ selected, event, onClick }) => {
 
   const type = getEventTypeForName(event.type);
 
-  return <div className={`block ${ selected ? 'bg-indigo-50' : '' } hover:bg-indigo-50 focus:outline-none transition duration-150 ease-in-out cursor-pointer`}>
+  return <div onClick={onClick} className={`block ${ selected ? 'bg-mesmer-50' : '' } hover:bg-mesmer-50 focus:outline-none transition duration-150 ease-in-out cursor-pointer`}>
     <div className="px-4 py-4">
       <div className="flex items-center justify-between">
-        <div className="text-sm leading-5 font-medium text-indigo-600 truncate">
+        <div className={`text-sm leading-5 font-medium ${type === EventType.Error ? 'text-red-600' : 'text-mesmer-600'} truncate`}>
           { convertToProperCase(event.name) }
         </div>
         <div className="ml-2 flex-shrink-0 flex">

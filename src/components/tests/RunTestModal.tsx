@@ -3,13 +3,13 @@ import Modal from '../shared/Modal';
 import Form, { FormState } from '../shared/Form';
 import FormTitle from '../shared/form-elements/FormTitle';
 import FormDescription from '../shared/form-elements/FormDescription';
-import { Envionment, Test } from '../types/environment';
+import { Environment, Test } from '../types/environment';
 import FormSelectField, { Option } from '../shared/form-elements/FormSelectField';
 import { MissingParameterError } from '../../helpers/errors';
 import { getTests } from '../../services/test-service';
 
 type RunTestModalProps = {
-  environment: Envionment
+  environment: Environment
   dismiss: () => void
   confirm: () => void
 }
@@ -17,7 +17,7 @@ type RunTestModalProps = {
 const RunTestModal: React.FC<RunTestModalProps> = ({ dismiss, confirm, environment }) => {
 
   const [formState, setFormState] = useState<FormState>(FormState.Disabled);
-  const [submittionError, setSubmittionError] = useState<string>();
+  const [submissionError, setSubmissionError] = useState<string>();
 
   const [tests, setTests] = useState<Option[]>();
 
@@ -37,18 +37,18 @@ const RunTestModal: React.FC<RunTestModalProps> = ({ dismiss, confirm, environme
     } catch (e) {
       if (e instanceof MissingParameterError) {
         setFormState(FormState.Invalid)
-        setSubmittionError(e.message)
+        setSubmissionError(e.message)
         return;
       }
 
       setFormState(FormState.Failed);
-      setSubmittionError(e.message);
+      setSubmissionError(e.message);
     }  
   }
 
   
   return <Modal onDismiss={dismiss}>
-    <Form cancel={dismiss} submit={startTest} state={formState} confirmMessage="Run" error={submittionError}>
+    <Form cancel={dismiss} submit={startTest} state={formState} confirmMessage="Run" error={submissionError}>
       { (handleChange) => (
         <>
           <FormTitle>Run a test</FormTitle>

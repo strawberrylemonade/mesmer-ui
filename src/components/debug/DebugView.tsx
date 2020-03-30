@@ -3,7 +3,7 @@ import useWebSocket, { ReadyState } from 'react-use-websocket';
 import Layout from '../Layout';
 import { WSBaseUrl } from '../../services/client';
 import { useParams } from 'react-router-dom';
-import { Event, Envionment } from '../types/environment';
+import { Event, Environment } from '../types/environment';
 import DebugListItem from './DebugListItem';
 import Card from '../shared/Card';
 import { getDebugSession } from '../../services/debug-service';
@@ -18,11 +18,13 @@ import { getEnvironment } from '../../services/environment-service';
 import FormDescription from '../shared/form-elements/FormDescription';
 import FormSection from '../shared/form-elements/FormSection';
 
+import NotFound from '../../assets/404-happy.svg';
+
 const DebugView: React.FC = () => {
 
   const { projectId = '', environmentId = '', debugId = '' } = useParams();
 
-  const [environment, setEnvironment] = useState<Envionment>()
+  const [environment, setEnvironment] = useState<Environment>()
   const [project, setProject] = useState<Project>()
 
   const [events, setEvents] = useState<Event[]>([]);
@@ -54,7 +56,7 @@ const DebugView: React.FC = () => {
 
   return <Layout>
     <SkeletonTheme color="#ffe3e317" highlightColor="#ffffff29">
-      <div className="py-8 bg-gray-800">
+      <div className="py-8 bg-mesmer-800">
         <div className="px-8 max-w-7xl mx-auto">
           <Breadcrumbs routes={[{ name: 'Projects', route: '/projects' }, { name: project?.name, route: project?.id ? `/projects/${project.id}` : undefined }, { name: environment?.name, route: (project?.id && environment?.environmentId) ? `/projects/${project.id}/environments/${environment.environmentId}` : undefined }]}></Breadcrumbs>
           <div className="mt-2 flex items-center justify-between">
@@ -77,8 +79,8 @@ const DebugView: React.FC = () => {
       <div className="bg-white shadow overflow-scroll sm:rounded-lg">
         <ul>
           { events.map((event) => (
-            <li key={event.id} onClick={() => { setSelectedEvent(event) }}>
-              <DebugListItem event={event} selected={`${event.originalTimestamp}-${selectedEvent?.name}` === `${selectedEvent?.originalTimestamp}-${event.name}`}></DebugListItem>
+            <li key={event.id}>
+              <DebugListItem onClick={() => { setSelectedEvent(event) }} event={event} selected={`${event.originalTimestamp}-${selectedEvent?.name}` === `${selectedEvent?.originalTimestamp}-${event.name}`}></DebugListItem>
             </li>
           ))}
         </ul>
