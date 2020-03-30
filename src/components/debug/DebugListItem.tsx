@@ -1,12 +1,12 @@
 import React from 'react';
-import { Event } from '../types/environment';
+import { IEvent } from '../types/environment';
 import convertToProperCase from 'lodash.startcase';
 import Moment from 'react-moment';
 
 interface DebugListItemProps {
   // Metadata
   selected: boolean
-  event: Event
+  event: IEvent
   onClick: () => void
 }
 
@@ -38,16 +38,16 @@ export const getTagForEventType = (type: EventType) => {
   }
 }
 
-export const getDescriptorsForEvent = (type: EventType, event: Event) => {
+export const getDescriptorsForEvent = (type: EventType, event: IEvent) => {
   switch (type) {
     case EventType.Screen:
       return <>
-        <div className="mt-2 flex items-center text-sm leading-5 text-gray-500">
+        <div className="ml-2 flex items-center text-sm leading-5 text-gray-500">
           <svg className="flex-shrink-0 mr-1.5 h-5 w-5 text-gray-400" fill="currentColor" viewBox="0 0 20 20">
-            <path fillRule="evenodd" d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z" clipRule="evenodd"/>
+            <path fillRule="evenodd" d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z" clipRule="evenodd" />
           </svg>
           <span>
-            { convertToProperCase(event.state) }
+            {convertToProperCase(event.state)}
           </span>
         </div>
       </>
@@ -77,25 +77,32 @@ const DebugListItem: React.FC<DebugListItemProps> = ({ selected, event, onClick 
 
   const type = getEventTypeForName(event.type);
 
-  return <div onClick={onClick} className={`block ${ selected ? 'bg-mesmer-50' : '' } hover:bg-mesmer-50 focus:outline-none transition duration-150 ease-in-out cursor-pointer`}>
+  return <div onClick={onClick} className={`block ${selected ? 'bg-mesmer-50' : ''} hover:bg-mesmer-50 focus:outline-none transition duration-150 ease-in-out cursor-pointer border-b border-gray-200`}>
     <div className="px-4 py-4">
       <div className="flex items-center justify-between">
-        <div className={`text-sm leading-5 font-medium ${type === EventType.Error ? 'text-red-600' : 'text-mesmer-600'} truncate`}>
-          { convertToProperCase(event.name) }
+        <div className="flex flex-wrap">
+          <div className={`text-sm leading-5 font-medium ${type === EventType.Error ? 'text-red-600' : 'text-mesmer-600'} truncate`}>
+            {convertToProperCase(event.name)}
+          </div>
+          {getDescriptorsForEvent(type, event)}
+          <div className="ml-2 flex items-center text-sm leading-5 text-gray-500">
+            <svg className="flex-shrink-0 mr-1.5 h-5 w-5 text-gray-400" fill="currentColor" viewBox="0 0 20 20">
+              <path fillRule="evenodd" d="M6 2a1 1 0 00-1 1v1H4a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V6a2 2 0 00-2-2h-1V3a1 1 0 10-2 0v1H7V3a1 1 0 00-1-1zm0 5a1 1 0 000 2h8a1 1 0 100-2H6z" clipRule="evenodd" />
+            </svg>
+            <span>
+              <Moment fromNow={true}>{event.originalTimestamp}</Moment>
+            </span>
+          </div>
         </div>
-        <div className="ml-2 flex-shrink-0 flex">
-          { getTagForEventType(type) }
-        </div>
-      </div>
-      <div className="mt-2">
-        { getDescriptorsForEvent(type, event) }
-        <div className="mt-2 flex items-center text-sm leading-5 text-gray-500">
-          <svg className="flex-shrink-0 mr-1.5 h-5 w-5 text-gray-400" fill="currentColor" viewBox="0 0 20 20">
-            <path fillRule="evenodd" d="M6 2a1 1 0 00-1 1v1H4a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V6a2 2 0 00-2-2h-1V3a1 1 0 10-2 0v1H7V3a1 1 0 00-1-1zm0 5a1 1 0 000 2h8a1 1 0 100-2H6z" clipRule="evenodd"/>
-          </svg>
-          <span>
-            <Moment fromNow={true}>{event.originalTimestamp}</Moment>
-          </span>
+        <div className="flex">
+          <div className="ml-2 flex-shrink-0 flex">
+            {getTagForEventType(type)}
+          </div>
+          <div className="ml-2 flex-shrink-0">
+            <svg className="h-5 w-5 text-gray-400" fill="currentColor" viewBox="0 0 20 20">
+              <path fillRule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clipRule="evenodd"/>
+            </svg>
+          </div>
         </div>
       </div>
     </div>

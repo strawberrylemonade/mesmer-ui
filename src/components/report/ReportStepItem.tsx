@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Event } from '../types/environment';
+import { IEvent } from '../types/environment';
 import ListItem from '../shared/list-elements/ListItem';
 import { IStepReport, ReportStatus } from '../../services/report-service';
 import DebugListItem from '../debug/DebugListItem';
@@ -15,8 +15,8 @@ import { Link } from 'react-router-dom';
 
 type ReportStepItemProps = {
   step: IStepReport
-  events: Event[]
-  onClick: (item: (IStepReport | Event)) => void
+  events: IEvent[]
+  onClick: (type: 'IStepReport' | 'IEvent', item: IStepReport | IEvent) => void
 }
 
 const getIconForStatus = (status: ReportStatus) => {
@@ -60,7 +60,7 @@ const ReportStepItem: React.FC<ReportStepItemProps> = ({ step, events, onClick }
               </span>
             </div>
             <div className="flex border-b border-t border-gray-200">
-              <div onClick={() => onClick(step)} className="p-2 flex flex-1 justify-center items-center border-r border-gray-200 hover:text-gray-600 hover:bg-gray-100 focus:outline-none focus:bg-gray-200 cursor-pointer">
+              <div onClick={() => onClick('IStepReport', step)} className="p-2 flex flex-1 justify-center items-center border-r border-gray-200 hover:text-gray-600 hover:bg-gray-100 focus:outline-none focus:bg-gray-200 cursor-pointer">
                 <p className="text-sm leading-5 font-medium text-gray-600 mr-1">See details</p>
               </div>
               <div onClick={() => { if (events.length) setShowEvents(!showEvents) }} className="p-2 flex flex-1 justify-center items-center hover:text-gray-600 hover:bg-gray-100 focus:outline-none focus:bg-gray-200 cursor-pointer">
@@ -75,7 +75,7 @@ const ReportStepItem: React.FC<ReportStepItemProps> = ({ step, events, onClick }
             </div>
             {showEvents ? <ul>
               {events.map(event => (
-                <DebugListItem onClick={() => onClick(event)} key={event.id} event={event} selected={false}></DebugListItem>
+                <DebugListItem onClick={() => onClick('IEvent', event)} key={event.id} event={event} selected={false}></DebugListItem>
               ))}
             </ul> : null}
           </div>

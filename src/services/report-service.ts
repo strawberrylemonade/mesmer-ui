@@ -1,5 +1,5 @@
 import { get } from './client';
-import { Event } from '../components/types/environment'
+import { IEvent } from '../components/types/environment'
 
 export enum ReportStatus {
   Good = 'Good',
@@ -30,7 +30,7 @@ export interface IReport {
   duration: number
   steps: IStepReport[]
 
-  events?: Event[]
+  events?: IEvent[]
 }
 
 export const getReports = async () => {

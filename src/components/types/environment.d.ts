@@ -21,7 +21,7 @@ export interface Test {
   steps: Array<(ISendAndWaitStep | ISendAndWaitForStep)>
 }
 
-export interface Event {
+export interface IEvent {
   project: string
   environment: string
 

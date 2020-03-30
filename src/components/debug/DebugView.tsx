@@ -3,7 +3,7 @@ import useWebSocket, { ReadyState } from 'react-use-websocket';
 import Layout from '../Layout';
 import { WSBaseUrl } from '../../services/client';
 import { useParams } from 'react-router-dom';
-import { Event, Environment } from '../types/environment';
+import { IEvent, Environment } from '../types/environment';
 import DebugListItem from './DebugListItem';
 import Card from '../shared/Card';
 import { getDebugSession } from '../../services/debug-service';
@@ -18,7 +18,9 @@ import { getEnvironment } from '../../services/environment-service';
 import FormDescription from '../shared/form-elements/FormDescription';
 import FormSection from '../shared/form-elements/FormSection';
 
-import NotFound from '../../assets/404-happy.svg';
+import NotSelectedImage from '../../assets/grayscale-binoculus.svg';
+import Spinner from '../shared/Spinner';
+import EventDetailCard from './EventDetailCard';
 
 const DebugView: React.FC = () => {
 
@@ -27,11 +29,11 @@ const DebugView: React.FC = () => {
   const [environment, setEnvironment] = useState<Environment>()
   const [project, setProject] = useState<Project>()
 
-  const [events, setEvents] = useState<Event[]>([]);
+  const [events, setEvents] = useState<IEvent[]>();
   const [session, setSession] = useState();
   const [sendMessage, lastMessage, readyState, getWebSocket] = useWebSocket(`${WSBaseUrl}/projects/${projectId}/environments/${environmentId}/debug/${debugId}`);
 
-  const [selectedEvent, setSelectedEvent] = useState<Event>();
+  const [selectedEvent, setSelectedEvent] = useState<IEvent>();
 
   useEffect(() => {
     (async () => {
@@ -42,7 +44,7 @@ const DebugView: React.FC = () => {
       setProject(project);
 
       const session = await getDebugSession(projectId, environmentId, debugId);
-      const messages: Event[] = session.events;
+      const messages: IEvent[] = session.events;
       setSession(session);
       setEvents(messages);
     })()
@@ -50,7 +52,7 @@ const DebugView: React.FC = () => {
 
   useEffect(() => {
     if (lastMessage !== null) {
-      setEvents(prev => ([JSON.parse(lastMessage.data), ...prev]));
+      setEvents(prev =>  ([JSON.parse(lastMessage.data), ...(prev ?? [])]));
     }
   }, [lastMessage]);
 
@@ -75,23 +77,22 @@ const DebugView: React.FC = () => {
         </div>
       </div>
     </SkeletonTheme>
-    <main className="sm:px-8 max-w-7xl mx-auto md:py-8 grid md:grid-cols-two-column gap-4 h-c-full">
+    <main className="sm:px-8 max-w-7xl mx-auto md:py-8 grid md:grid-cols-2 gap-4 h-c-full">
       <div className="bg-white shadow overflow-scroll sm:rounded-lg">
-        <ul>
-          { events.map((event) => (
-            <li key={event.id}>
-              <DebugListItem onClick={() => { setSelectedEvent(event) }} event={event} selected={`${event.originalTimestamp}-${selectedEvent?.name}` === `${selectedEvent?.originalTimestamp}-${event.name}`}></DebugListItem>
-            </li>
-          ))}
-        </ul>
+        { events ? <ul> 
+          { events.map(event => {
+            return <DebugListItem onClick={() => setSelectedEvent(event)} key={event.name} event={event} selected={`${event.originalTimestamp}-${selectedEvent?.name}` === `${selectedEvent?.originalTimestamp}-${event.name}`}></DebugListItem>
+          }) } 
+        </ul>  : <div className="mt-12"><Spinner></Spinner></div> }
       </div>
-      <Card title={ selectedEvent ? convertToProperCase(selectedEvent.name) : ''}>
-          { selectedEvent ?
-            <>
-              <JSONViewer value={selectedEvent.context?.data}></JSONViewer>
-            </>
-          : null }
-      </Card>
+        { selectedEvent ? <EventDetailCard event={selectedEvent}></EventDetailCard> :
+        <Card className={!selectedEvent ? 'pointer-events-none opacity-50' : ''}>
+          <div className="justify-center items-center flex-col flex mt-8 max-w-sm mx-auto" style={{ height: '70vh' }}>
+            <img src={NotSelectedImage}></img>
+            <p className="text-lg leading-5 font-medium text-gray-600 text-center mt-5">Select an event on the panel to see more detail here.</p>
+          </div>
+        </Card>
+       }
     </main>
   </Layout>
 }
