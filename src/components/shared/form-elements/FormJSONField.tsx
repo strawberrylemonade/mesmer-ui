@@ -15,7 +15,70 @@ const FormTextField: React.FC<FormTextFieldProps> = ({ name, hint, onChange, ini
       { name }
     </label>
     <div className="mt-1 sm:mt-0 sm:col-span-2">
-      <JSONEditor initial={initial} onChange={onChange}></JSONEditor>
+      <JSONEditor initial={initial} onChange={onChange} schema={{
+  "$schema": "http://json-schema.org/draft-07/schema",
+  "type": "array",
+  "title": "The Root Schema",
+  "description": "The root schema comprises the entire JSON document.",
+  "items": {
+    "$id": "#/items",
+    "type": "object",
+    "title": "The Items Schema",
+    "description": "An explanation about the purpose of this instance.",
+    "default": {},
+    "required": [
+      "name",
+      "type"
+    ],
+    "properties": {
+      "name": {
+        "$id": "#/items/properties/name",
+        "type": "string",
+        "title": "The Name Schema",
+        "description": "An explanation about the purpose of this instance."
+      },
+      "type": {
+        "$id": "#/items/properties/type",
+        "type": "string",
+        "title": "The Type Schema",
+        "description": "An explanation about the purpose of this instance.",
+        "enum": ["send&Wait", "send&WaitFor", "wait&Expect"]
+      },
+      "message": {
+        "$id": "#/items/properties/message",
+        "type": "string",
+        "title": "The Message Schema",
+        "description": "An explanation about the purpose of this instance."
+      },
+      "expect": {
+        "oneOf": [
+          {
+            "$id": "#/items/properties/expect",
+            "type": "string",
+            "title": "asdsad",
+            "description": "asdsadsadasd"
+          },
+          {
+            "type": "object",
+            "required": [ "contentType", "content" ],
+            "properties": {
+              "contentType": {
+                "$id": "#/items/properties/expect/contentType",
+                "type": "string",
+                "title": "The Message Schema"
+              },
+              "content": {
+                "$id": "#/items/properties/expect/content",
+                "type": "object",
+                "title": "The Message Schema"
+              }
+            }
+          }
+        ]
+      }
+    }
+  }
+}}></JSONEditor>
       { hint ? <p className="mt-2 text-sm text-gray-500">{hint}</p> : <></>}
     </div>
   </div>

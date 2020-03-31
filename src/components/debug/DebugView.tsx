@@ -8,15 +8,11 @@ import DebugListItem from './DebugListItem';
 import Card from '../shared/Card';
 import { getDebugSession } from '../../services/debug-service';
 import Skeleton, { SkeletonTheme } from 'react-loading-skeleton';
-import JSONViewer from '../shared/JSONViewer';
 
-import convertToProperCase from 'lodash.startcase';
 import Breadcrumbs from '../shared/Breadcrumbs';
 import { Project } from '../types/project';
 import { getProject } from '../../services/project-service';
 import { getEnvironment } from '../../services/environment-service';
-import FormDescription from '../shared/form-elements/FormDescription';
-import FormSection from '../shared/form-elements/FormSection';
 
 import NotSelectedImage from '../../assets/grayscale-binoculus.svg';
 import Spinner from '../shared/Spinner';
@@ -30,7 +26,7 @@ const DebugView: React.FC = () => {
   const [project, setProject] = useState<Project>()
 
   const [events, setEvents] = useState<IEvent[]>();
-  const [session, setSession] = useState();
+  const [session, setSession] = useState<any>();
   const [sendMessage, lastMessage, readyState, getWebSocket] = useWebSocket(`${WSBaseUrl}/projects/${projectId}/environments/${environmentId}/debug/${debugId}`);
 
   const [selectedEvent, setSelectedEvent] = useState<IEvent>();
