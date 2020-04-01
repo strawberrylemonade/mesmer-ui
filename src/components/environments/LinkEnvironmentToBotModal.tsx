@@ -3,10 +3,12 @@ import Form, { FormState } from '../shared/Form';
 import FormDescription from '../shared/form-elements/FormDescription';
 import { Environment } from '../types/environment';
 import FormSelectField, { Option } from '../shared/form-elements/FormSelectField';
-import { getOrganisations, getBots, getBot } from '../../services/talksuite-service';
+import { getOrganisations, getBots, getBot, importDialogues } from '../../services/talksuite-service';
 import { MissingParameterError } from '../../helpers/errors';
 import { updateEnvironment } from '../../services/environment-service';
 import TalksuiteAuthenticatedFormModal from '../shared/TalksuiteAuthenticatedFormModal';
+import FormSection from '../shared/form-elements/FormSection';
+import FormCheckboxField from '../shared/form-elements/FormCheckboxField';
 
 type LinkEnvironmentToBotModalProps = {
   environment: Environment
@@ -42,10 +44,11 @@ const LinkEnvironmentToBotModal: React.FC<LinkEnvironmentToBotModalProps> = ({ d
     if (!accessToken) return;
     setFormState(FormState.Loading);
 
-    const { organisation, bot } = result;
+    const { organisation, bot, deploy } = result;
 
     try {
       const { discoveryUrl } = await getBot(accessToken, organisation.id, bot.id);
+      if (deploy) await importDialogues(accessToken, organisation.id, 'v1');
       await updateEnvironment(environment.project, environment.environmentId, { connection: discoveryUrl })
       confirm();
 
@@ -71,6 +74,8 @@ const LinkEnvironmentToBotModal: React.FC<LinkEnvironmentToBotModalProps> = ({ d
             <FormDescription>{`Please select the bot you want to connect to "${environment.name}". Please note this will NOT automatically import the required libraries.`}</FormDescription>
             <FormSelectField name="Organisation" options={organisationOptions} onChange={(value) => { handleChange('organisation', value); getBotOptionsForOrganisation(value); }}></FormSelectField>
             <FormSelectField name="Bot" options={botOptions} onChange={(value) => { handleChange('bot', value) }}></FormSelectField>
+            <FormSection></FormSection>
+            <FormCheckboxField name="Deploy" hint="If you would like to deploy the dialogues associated with this module, please make sure this is selected. Do not attempt to deploy dialogues into an organisation where they already exist or this will fail." onChange={(value) => { handleChange('deploy', value) }}></FormCheckboxField>
           </>
         )}
       </Form>

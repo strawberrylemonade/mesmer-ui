@@ -18,7 +18,7 @@ export const get = async (path: string, headers: {[key: string]: any} = {}) => {
   return body;
 };
 
-export const post = async (path: string, data: {[key: string]: any} = {}) => {
+export const post = async (path: string, data: {[key: string]: any} = {}, headers: {[key: string]: any} = {}) => {
   const { idToken } = await auth.getIdToken();
 
   const response = await fetch(APIBaseUrl + path, {
@@ -26,7 +26,8 @@ export const post = async (path: string, data: {[key: string]: any} = {}) => {
     mode: 'cors',
     headers: {
       'Content-Type': 'application/json',
-      'Authorization': `Bearer ${idToken.rawIdToken}`
+      'Authorization': `Bearer ${idToken.rawIdToken}`,
+      ...headers
     },
     body: JSON.stringify(data)
   })

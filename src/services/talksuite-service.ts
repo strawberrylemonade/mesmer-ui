@@ -15,6 +15,10 @@ export const getBots = async (token: string, orgId: string) => {
   return response;
 }
 
+export const importDialogues = async (token: string, orgId: string, versionId: string) => {
+  const response = await post(`/proxy/talksuite/organisations/${orgId}/import?version=${versionId}`, {}, { 'Authentication': `Bearer ${token}` });
+  return response;
+}
 
 export const getBot = async (token: string, orgId: string, botId: string) => {
   const response = await get(`/proxy/talksuite/organisations/${orgId}/bots/${botId}`, { 'Authentication': `Bearer ${token}` });
