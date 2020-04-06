@@ -4,6 +4,7 @@ interface FormSelectFieldProps {
   name: string
   options?: Option[]
   hint?: string
+  initial?: Option
   onChange: (value: Option) => void
 }
 
@@ -12,7 +13,7 @@ export interface Option {
   name: string
 }
 
-const FormSelectField: React.FC<FormSelectFieldProps> = ({ name, hint, options = [], onChange }) => {
+const FormSelectField: React.FC<FormSelectFieldProps> = ({ name, hint, options = [], onChange, initial }) => {
 
   const [selectedOption, setSelectedOption] = useState<Option>();
 
@@ -25,11 +26,15 @@ const FormSelectField: React.FC<FormSelectFieldProps> = ({ name, hint, options =
   }
 
   useEffect(() => {
+    if (initial) setSelectedOption(initial);
+  }, [initial])
+
+  useEffect(() => {
     const [option] = options;
     if(selectedOption || !option) return;
     setSelectedOption(option)
     onChange(option);
-  })
+  }, [options])
   
   return <div className="sm:grid sm:grid-cols-3 mt-4 sm:gap-4 sm:items-start">
     <label htmlFor={name} className="block text-sm font-medium leading-5 text-gray-700 sm:mt-px sm:pt-2">

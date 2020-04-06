@@ -4,6 +4,7 @@ import { getProjects } from '../../services/project-service';
 import { Project } from '../types/project';
 import ProjectCard from './ProjectCard';
 import Spinner from '../shared/Spinner';
+import Card from '../shared/Card';
 
 const Projects: React.FC = () => {
 

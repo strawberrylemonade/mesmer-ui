@@ -28,8 +28,10 @@ const ProjectView: React.FC = () => {
       <title>{`Mesmer | ${project ? project.name : 'Project'}`}</title>
     </Helmet>
     <main className="sm:px-8 max-w-7xl mx-auto md:py-8">
-      <ProjectCard project={project}></ProjectCard>
-      <TestsCard project={project}></TestsCard>
+      { project ? <>
+        <ProjectCard project={project}></ProjectCard>
+        <TestsCard project={project}></TestsCard>
+      </> : null }
     </main>
   </Layout>
 }

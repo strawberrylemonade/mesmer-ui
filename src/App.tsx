@@ -29,6 +29,7 @@ import NewTestView from './components/tests/NewTestView';
 import DebugView from './components/debug/DebugView';
 import ReportView from './components/report/ReportView';
 import Popup from './components/shared/Popup';
+import Home from './home/Home';
 
 const browserHistory = createBrowserHistory();
 
@@ -97,7 +98,9 @@ function App() {
             <Route path="/tests">
               <TestsView></TestsView>
             </Route>
-            <Redirect exact path="/" to="/projects"></Redirect>
+            <Route path="/">
+              <Home></Home>
+            </Route>
           </Switch>
         </Router>
       </AlertProvider>

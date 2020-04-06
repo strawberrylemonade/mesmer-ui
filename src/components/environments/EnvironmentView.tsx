@@ -31,6 +31,7 @@ import Spinner from '../shared/Spinner';
 import { useAlert } from 'react-alert';
 
 import NotConnectedImage from '../../assets/binoculus.svg';
+import StartOrJoinDebugSessionModal from '../debug/StartOrJoinDebugSessionModal';
 
 const EnvironmentView: React.FC = () => {
 
@@ -45,6 +46,7 @@ const EnvironmentView: React.FC = () => {
   const [showLinkModal, setShowLinkModal] = useState<boolean>()
   const [showRunTestModal, setShowRunTestModal] = useState<boolean>()
   const [showManageTestsModal, setShowManageTestsModal] = useState<boolean>()
+  const [showDebugModal, setShowDebugModal] = useState<boolean>(false); 
 
   const { projectId = '', environmentId = '' } = useParams();
   const location = useLocation();
@@ -77,6 +79,7 @@ const EnvironmentView: React.FC = () => {
     { showLinkModal && environment ? <LinkEnvironmentToBotModal environment={environment} dismiss={() => { setShowLinkModal(false) }} confirm={() => { window.location.reload() }}></LinkEnvironmentToBotModal> : null }
     { showRunTestModal && environment ? <RunTestModal environment={environment} dismiss={() => { setShowRunTestModal(false) }} confirm={() => { window.location.reload() }}></RunTestModal> : null }
     { showManageTestsModal && environment ? <ManageTestsModal environment={environment} dismiss={() => { setShowManageTestsModal(false) }} confirm={() => { window.location.reload() }}></ManageTestsModal> : null }
+    { showDebugModal && environment && project ? <StartOrJoinDebugSessionModal dismiss={() => { setShowDebugModal(false) }} showChoices={false} environment={environment} project={project} confirm={(projectId, environmentId, debugSessionId) => { history.push(`/projects/${projectId}/environments/${environmentId}/debug/${debugSessionId}`) }}></StartOrJoinDebugSessionModal> : null }
     <main className="md:px-8 max-w-7xl mx-auto -mt-20 ease-in-out animation-quick animation-once animation-fadeUp flex flex-col-reverse sm:flex-row">
       <div className="flex-grow grid sm:gap-4 gap-2 h-fit">
         { alerts ? <Card title="Alerts">
@@ -114,7 +117,7 @@ const EnvironmentView: React.FC = () => {
           <nav>
             {
               environment?.connection ? <>
-                <div onClick={onCreateDebug} className="group flex items-center px-3 py-2 text-sm leading-5 font-medium text-gray-900 rounded-md hover:text-gray-900 hover:bg-gray-100 focus:outline-none focus:bg-gray-200 transition ease-in-out duration-150 cursor-pointer">
+                <div onClick={() => setShowDebugModal(true)} className="group flex items-center px-3 py-2 text-sm leading-5 font-medium text-gray-900 rounded-md hover:text-gray-900 hover:bg-gray-100 focus:outline-none focus:bg-gray-200 transition ease-in-out duration-150 cursor-pointer">
                   <FiCpu className="flex-shrink-0 -ml-1 mr-3 h-5 w-5 text-gray-400 group-hover:text-gray-500 group-focus:text-gray-500 transition ease-in-out duration-150" />
                   <span className="truncate">Start debug session</span>
                 </div>

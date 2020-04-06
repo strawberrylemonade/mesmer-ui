@@ -17,28 +17,14 @@ const Header: React.FC = () => {
   
   const user = auth.getAccount()
 
-  return <nav className="bg-white border-b border-gray-200">
+  return <nav className="bg-white border-b border-gray-200 z-10">
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       <div className="flex justify-between h-16">
         <div className="flex">
-          <Link to='/' className="flex-shrink-0 flex items-center">
+          <NavLink to='/' className="flex-shrink-0 flex items-center">
             <img className="block lg:hidden h-8 w-auto" src={mesmerLogoSmall} alt="" />
             <img className="hidden lg:block h-8 w-auto" src={mesmerLogoLong} alt="" />
-          </Link>
-          <div className="hidden sm:-my-px sm:ml-6 sm:flex">
-            <NavLink isActive={(match, location) => !location.pathname.includes('/tests')} to="/projects" activeClassName="border-mesmer-500 focus:border-mesmer-700" className="inline-flex items-center px-1 pt-1 border-b-2 border-transparent text-sm font-medium leading-5 text-gray-500 hover:text-gray-700 hover:border-gray-300 focus:outline-none focus:text-gray-700 focus:border-gray-300 transition duration-150 ease-in-out">
-              Projects
-            </NavLink>
-            <NavLink isActive={(match, location) => location.pathname.includes('/tests')} to="/tests" activeClassName="border-mesmer-500 focus:border-mesmer-700" className="ml-8 inline-flex items-center px-1 pt-1 border-b-2 border-transparent text-sm font-medium leading-5 text-gray-500 hover:text-gray-700 hover:border-gray-300 focus:outline-none focus:text-gray-700 focus:border-gray-300 transition duration-150 ease-in-out">
-              Tests
-            </NavLink>
-            <a href={window.MESMER_ENVIRONMENT['METABASE_LINK']} target="_blank" className="ml-8 inline-flex items-center px-1 pt-1 border-b-2 border-transparent text-sm font-medium leading-5 text-gray-500 hover:text-gray-700 hover:border-gray-300 focus:outline-none focus:text-gray-700 focus:border-gray-300 transition duration-150 ease-in-out">
-              Analytics
-            </a>
-            <a href="https://www.notion.so/Help-Center-cc37013b9e9f40aca897bd70cf44ad7a" target="_blank" className="ml-8 inline-flex items-center px-1 pt-1 border-b-2 border-transparent text-sm font-medium leading-5 text-gray-500 hover:text-gray-700 hover:border-gray-300 focus:outline-none focus:text-gray-700 focus:border-gray-300 transition duration-150 ease-in-out">
-              Docs
-            </a>
-          </div>
+          </NavLink>
         </div>
         <div className="hidden sm:ml-6 sm:flex sm:items-center">
           <button className="p-1 border-2 border-transparent text-gray-400 rounded-full hover:text-gray-500 focus:outline-none focus:text-gray-500 focus:bg-gray-100 transition duration-150 ease-in-out">
@@ -74,12 +60,6 @@ const Header: React.FC = () => {
       </div>
     </div>
     <div className={`${dropDownState === DropDownState.Closed ? 'hidden' : ''} sm:hidden`}>
-      <div className="pt-2 pb-3">
-        <NavLink to="/projects" activeClassName="border-mesmer-500 text-mesmer-700" className="block pl-3 pr-4 py-2 border-l-4 border-transparent text-base font-medium text-gray-600 hover:text-gray-800 hover:bg-gray-50 hover:border-gray-300 focus:outline-none focus:text-gray-800 focus:bg-gray-50 focus:border-gray-300 transition duration-150 ease-in-out">Projects</NavLink>
-        <NavLink to="/tests" activeClassName="border-mesmer-500 text-mesmer-700" className="mt-1 block pl-3 pr-4 py-2 border-l-4 border-transparent text-base font-medium text-gray-600 hover:text-gray-800 hover:bg-gray-50 hover:border-gray-300 focus:outline-none focus:text-gray-800 focus:bg-gray-50 focus:border-gray-300 transition duration-150 ease-in-out">Tests</NavLink>
-        <a href={window.MESMER_ENVIRONMENT['METABASE_LINK']} className="mt-1 block pl-3 pr-4 py-2 border-l-4 border-transparent text-base font-medium text-gray-600 hover:text-gray-800 hover:bg-gray-50 hover:border-gray-300 focus:outline-none focus:text-gray-800 focus:bg-gray-50 focus:border-gray-300 transition duration-150 ease-in-out">Debug</a>
-        <a href="https://www.notion.so/Help-Center-cc37013b9e9f40aca897bd70cf44ad7a" className="mt-1 block pl-3 pr-4 py-2 border-l-4 border-transparent text-base font-medium text-gray-600 hover:text-gray-800 hover:bg-gray-50 hover:border-gray-300 focus:outline-none focus:text-gray-800 focus:bg-gray-50 focus:border-gray-300 transition duration-150 ease-in-out">Docs</a>
-      </div>
       <div className="pt-4 pb-3 border-t border-gray-200">
         <div className="flex items-center px-4">
           <div className="flex-shrink-0">

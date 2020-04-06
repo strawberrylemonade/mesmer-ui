@@ -22,7 +22,6 @@ const NewEnvironmentForm: React.FC<NewEnvironmentProps> = ( { projectId, dismiss
 
   const handleSubmit = (result: {[key: string]: any}) => {
     (async () => {
-      console.log('Submitting...', result);
       setFormState(FormState.Loading)
 
       try {
