@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import Skeleton from 'react-loading-skeleton';
 import { Environment } from '../types/environment';
+import { getEnvironmentStatus } from '../../services/environment-service';
 
 type EnvironmentStatusCardProps = {
   environment?: Environment
@@ -39,11 +40,12 @@ const EnvironmentStatusCard: React.FC<EnvironmentStatusCardProps> = ( { environm
   const [environmentStatus, setEnvironmentStatus] = useState<EnvironmentStatus>(EnvironmentStatus.Loading)
 
   useEffect(() => {
-    if (!environment) return;
-    if (!environment.connection) { setEnvironmentStatus(EnvironmentStatus.Unlinked); return; }
-    setTimeout(() => {
-      setEnvironmentStatus(EnvironmentStatus.Good)
-    }, 400);
+    (async () => {
+      if (!environment) return;
+      if (!environment.connection) { setEnvironmentStatus(EnvironmentStatus.Unlinked); return; }
+      const { status } = await getEnvironmentStatus(environment.project, environment.environmentId);
+      setEnvironmentStatus(status);
+    })()
   }, [environment])
 
   return <div className={`bg-${getColourForStatus(environmentStatus)} px-6 py-5 shadow overflow-hidden sm:rounded-lg`}>

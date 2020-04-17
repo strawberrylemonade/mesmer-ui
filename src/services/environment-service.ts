@@ -19,36 +19,26 @@ export const createEnvironment = async (projectId: string, environment: Partial<
   environment.environmentId = environment.name.replace(' ', '-').replace(/\W/g, '').toLowerCase();
 
   // Confirm that project exists
-  try {
-    const response = await post(`/projects/${projectId}/environments`, environment);
-    return response;
-  } catch (e) {
-    console.log(e);
-  }
+  const response = await post(`/projects/${projectId}/environments`, environment);
+  return response;
 }
 
 export const getEnvironments = async (projectId: string) => {
-  try {
-    const environments = await get(`/projects/${projectId}/environments`);
-    return environments;
-  } catch (e) {
-    console.log(e);
-  }
+  const environments = await get(`/projects/${projectId}/environments`);
+  return environments;
 }
 
 export const getEnvironment = async (projectId: string, environmentId: string) => {
-  try {
-    const environment = await get(`/projects/${projectId}/environments/${environmentId}`);
-    return environment;
-  } catch (e) {
-    console.log(e);
-  }
+  const environment = await get(`/projects/${projectId}/environments/${environmentId}`);
+  return environment;
 }
 
 export const updateEnvironment = async (projectId: string, environmentId: string, candidateEnvironment: Partial<IEnvironment>) => {
-  try {
-    const environment = await put(`/projects/${projectId}/environments/${environmentId}`, candidateEnvironment);
-    return environment;
-  } catch (e) {
-    console.log(e);  }
+  const environment = await put(`/projects/${projectId}/environments/${environmentId}`, candidateEnvironment);
+  return environment;
+}
+
+export const getEnvironmentStatus = async (projectId: string, environmentId: string) => {
+  const status = await get(`/projects/${projectId}/environments/${environmentId}/status`);
+  return status;
 }

@@ -67,7 +67,7 @@ const Home: React.FC<HomeProps> = () => {
           <ProjectCard key={project.id} project={project}></ProjectCard>
         )) : <Spinner></Spinner>}
       </div>
-      <div className="w-full sm:min-w-80 sm:w-80 sm:ml-4 grid sm:gap-4 gap-2 h-fit mb-2 z-10">
+      <div className="w-full sm:min-w-72 sm:w-72 sm:ml-4 grid sm:gap-4 gap-2 h-fit mb-2 z-10">
         <Card title="Quick Actions">
           <nav>
             { showCreateProjectModal ? <Modal onDismiss={() => setShowCreateProjectModal(false)}> <NewProjectForm dismiss={() => setShowCreateProjectModal(false)} reload={() => { window.location.reload() }}></NewProjectForm></Modal> : null }

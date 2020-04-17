@@ -34,39 +34,21 @@ export interface IReport {
 }
 
 export const getReports = async () => {
-  try {
-    const environments = await get(`/projects`);
-    return environments;
-  } catch (e) {
-    console.log(e);
-  }
+  const environments = await get(`/projects`);
+  return environments;
 }
 
 export const getReport = async (projectId: string, environmentId: string, reportId: string) => {
-  try {
-    const report = await get(`/projects/${projectId}/environments/${environmentId}/reports/${reportId}`);
-    return report;
-  } catch (e) {
-    console.log(e);
-  }
+  const report = await get(`/projects/${projectId}/environments/${environmentId}/reports/${reportId}`);
+  return report;
 }
 
 export const getRecentReport = async (projectId: string, environmentId: string) => {
-  try {
-    const report = await get(`/projects/${projectId}/environments/${environmentId}/reports/recent`);
-    return report;
-  } catch (e) {
-    console.log(e);
-  }
-
+  const report = await get(`/projects/${projectId}/environments/${environmentId}/reports/recent`);
+  return report;
 }
 
 export const getRecentReports = async (projectId: string, environmentId: string) => {
-  try {
-    const reports = await get(`/projects/${projectId}/environments/${environmentId}/reports/recents`);
-    return reports;
-  } catch (e) {
-    console.log(e);
-  }
-
+  const reports = await get(`/projects/${projectId}/environments/${environmentId}/reports/recents`);
+  return reports;
 }

@@ -10,6 +10,7 @@ import { Link, useHistory } from 'react-router-dom';
 import { AiFillPushpin, AiOutlinePushpin } from 'react-icons/ai';
 import StartOrJoinDebugSessionModal from '../debug/StartOrJoinDebugSessionModal';
 import { Project } from '../types/project';
+import { getEnvironmentStatus } from '../../services/environment-service';
 
 export interface EnvironmentCardProps {
   environment?: Environment
@@ -43,6 +44,24 @@ function getTextColorForStatus(status: EnvironmentStatus) {
   }
 }
 
+function getHoverColorForStatus(status: EnvironmentStatus) {
+  switch (status) {
+    case EnvironmentStatus.Loading:
+    case EnvironmentStatus.Unknown:
+      return 'gray-100'
+    case EnvironmentStatus.Unlinked:
+      return 'gray-100'
+    case EnvironmentStatus.Good:
+      return 'mesmer-200'
+    case EnvironmentStatus.Poor:
+      return 'orange-200'
+    case EnvironmentStatus.Bad:
+      return 'red-200'
+    default:
+      break;
+  }
+}
+
 function getBackgroundForStatus(status: EnvironmentStatus) {
   switch (status) {
     case EnvironmentStatus.Loading:
@@ -71,11 +90,12 @@ const EnvironmentCard: React.FC<EnvironmentCardProps> = ({ environment, project 
   const history = useHistory();
 
   useEffect(() => {
-    if (!environment) return;
-    if (!environment.connection) { setEnvironmentStatus(EnvironmentStatus.Unlinked); return; }
-    setTimeout(() => {
-      setEnvironmentStatus(Math.random() > 0.5 ? EnvironmentStatus.Good : EnvironmentStatus.Poor)
-    }, 400);
+    (async () => {
+      if (!environment) return;
+      if (!environment.connection) { setEnvironmentStatus(EnvironmentStatus.Unlinked); return; }
+      const { status } = await getEnvironmentStatus(environment.project, environment.environmentId);
+      setEnvironmentStatus(status);
+    })()
   }, [environment])
 
   return <div className="bg-white shadow overflow-hidden sm:rounded-lg h-fit">
@@ -84,7 +104,7 @@ const EnvironmentCard: React.FC<EnvironmentCardProps> = ({ environment, project 
         <h3 className="text-md leading-6 font-medium gray-600">
           {environment ? environment.name : <Skeleton width={120}></Skeleton>}
         </h3>
-        <div className="flex items-center -mt-2 -mr-2 px-2 py-2 text-gray-900 rounded-md hover:text-gray-900 hover:bg-gray-100 focus:outline-none focus:bg-gray-200 cursor-pointer">
+        <div className={`flex items-center -mt-2 -mr-2 px-2 py-2 text-gray-900 rounded-md hover:text-gray-900 hover:bg-${getHoverColorForStatus(environmentStatus)} focus:outline-none focus:bg-${getHoverColorForStatus(environmentStatus)} cursor-pointer`}>
           <AiOutlinePushpin></AiOutlinePushpin>
         </div>
       </div>

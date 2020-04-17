@@ -14,6 +14,7 @@ module.exports = {
       colors: {
         'poor-orange': '#ffa446',
         'mesmer-50': '#7cc3b80f',
+        'mesmer-200': '#7cc3b81c',
         'mesmer-300': '#cbece9',
         'mesmer-400': '#7fc7bc',
         'mesmer-500': '#6ab3a7',
