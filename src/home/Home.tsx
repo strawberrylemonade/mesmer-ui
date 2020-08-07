@@ -71,19 +71,19 @@ const Home: React.FC<HomeProps> = () => {
         <Card title="Quick Actions">
           <nav>
             { showCreateProjectModal ? <Modal onDismiss={() => setShowCreateProjectModal(false)}> <NewProjectForm dismiss={() => setShowCreateProjectModal(false)} reload={() => { window.location.reload() }}></NewProjectForm></Modal> : null }
-            <div onClick={() => setShowCreateProjectModal(true)} className="group flex items-center px-3 py-2 text-sm leading-5 font-medium text-gray-900 rounded-md hover:text-gray-900 hover:bg-gray-100 focus:outline-none focus:bg-gray-200 transition ease-in-out duration-150 cursor-pointer">
+            <div id="new-project" onClick={() => setShowCreateProjectModal(true)} className="group flex items-center px-3 py-2 text-sm leading-5 font-medium text-gray-900 rounded-md hover:text-gray-900 hover:bg-gray-100 focus:outline-none focus:bg-gray-200 transition ease-in-out duration-150 cursor-pointer">
               <TiPlus className="flex-shrink-0 -ml-1 mr-3 h-5 w-5 text-gray-400 group-hover:text-gray-500 group-focus:text-gray-500 transition ease-in-out duration-150" />
               <span className="truncate">Create a new project</span>
             </div>
-            <div className="group flex items-center px-3 py-2 text-sm leading-5 font-medium text-gray-900 rounded-md hover:text-gray-900 hover:bg-gray-100 focus:outline-none focus:bg-gray-200 transition ease-in-out duration-150 cursor-pointer">
+            <div id="new-environment" className="group flex items-center px-3 py-2 text-sm leading-5 font-medium text-gray-900 rounded-md hover:text-gray-900 hover:bg-gray-100 focus:outline-none focus:bg-gray-200 transition ease-in-out duration-150 cursor-pointer">
               <TiPlus className="flex-shrink-0 -ml-1 mr-3 h-5 w-5 text-gray-400 group-hover:text-gray-500 group-focus:text-gray-500 transition ease-in-out duration-150" />
               <span className="truncate">Create a new environment</span>
             </div>
-            <div className="group flex items-center px-3 py-2 text-sm leading-5 font-medium text-gray-900 rounded-md hover:text-gray-900 hover:bg-gray-100 focus:outline-none focus:bg-gray-200 transition ease-in-out duration-150 cursor-pointer">
+            <div id="new-test" className="group flex items-center px-3 py-2 text-sm leading-5 font-medium text-gray-900 rounded-md hover:text-gray-900 hover:bg-gray-100 focus:outline-none focus:bg-gray-200 transition ease-in-out duration-150 cursor-pointer">
               <TiPlus className="flex-shrink-0 -ml-1 mr-3 h-5 w-5 text-gray-400 group-hover:text-gray-500 group-focus:text-gray-500 transition ease-in-out duration-150" />
               <span className="truncate">Create a new test</span>
             </div>
-            <div className="group flex items-center px-3 py-2 text-sm leading-5 font-medium text-gray-900 rounded-md hover:text-gray-900 hover:bg-gray-100 focus:outline-none focus:bg-gray-200 transition ease-in-out duration-150 cursor-pointer">
+            <div id="new-user" className="group flex items-center px-3 py-2 text-sm leading-5 font-medium text-gray-900 rounded-md hover:text-gray-900 hover:bg-gray-100 focus:outline-none focus:bg-gray-200 transition ease-in-out duration-150 cursor-pointer">
               <TiPlus className="flex-shrink-0 -ml-1 mr-3 h-5 w-5 text-gray-400 group-hover:text-gray-500 group-focus:text-gray-500 transition ease-in-out duration-150" />
               <span className="truncate">Invite a new user</span>
             </div>
@@ -106,7 +106,7 @@ const Home: React.FC<HomeProps> = () => {
               <span className="truncate">Start or join a debug session</span>
             </div>
             <hr className="m-3 border-gray-200"></hr>
-            <div onClick={() => auth.logout()} className="group flex items-center px-3 py-2 text-sm leading-5 font-medium text-gray-900 rounded-md hover:text-gray-900 hover:bg-gray-100 focus:outline-none focus:bg-gray-200 transition ease-in-out duration-150 cursor-pointer">
+            <div onClick={() => {}} className="group flex items-center px-3 py-2 text-sm leading-5 font-medium text-gray-900 rounded-md hover:text-gray-900 hover:bg-gray-100 focus:outline-none focus:bg-gray-200 transition ease-in-out duration-150 cursor-pointer">
               <FiLogOut className="flex-shrink-0 -ml-1 mr-3 h-5 w-5 text-gray-400 group-hover:text-gray-500 group-focus:text-gray-500 transition ease-in-out duration-150" />
               <span className="truncate">Sign out</span>
             </div>

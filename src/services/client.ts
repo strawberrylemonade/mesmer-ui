@@ -4,12 +4,10 @@ export const APIBaseUrl = `${process.env.NODE_ENV === 'production' ? 'https' : '
 export const WSBaseUrl = `${process.env.NODE_ENV === 'production' ? 'wss' : 'ws'}://${window.MESMER_ENVIRONMENT['BASE_URL']}`;  
 
 export const get = async (path: string, headers: {[key: string]: any} = {}) => {
-  const { idToken } = await auth.getIdToken();
 
   const response = await fetch(APIBaseUrl + path, {
     headers: {
       'Accept': 'application/json',
-      'Authorization': `Bearer ${idToken.rawIdToken}`,
       ...headers
     }
   })
@@ -19,14 +17,12 @@ export const get = async (path: string, headers: {[key: string]: any} = {}) => {
 };
 
 export const post = async (path: string, data: {[key: string]: any} = {}, headers: {[key: string]: any} = {}) => {
-  const { idToken } = await auth.getIdToken();
 
   const response = await fetch(APIBaseUrl + path, {
     method: 'POST',
     mode: 'cors',
     headers: {
       'Content-Type': 'application/json',
-      'Authorization': `Bearer ${idToken.rawIdToken}`,
       ...headers
     },
     body: JSON.stringify(data)
@@ -38,14 +34,12 @@ export const post = async (path: string, data: {[key: string]: any} = {}, header
 };
 
 export const put = async (path: string, data: {[key: string]: any}) => {
-  const { idToken } = await auth.getIdToken();
 
   const response = await fetch(APIBaseUrl + path, {
     method: 'PUT',
     mode: 'cors',
     headers: {
       'Content-Type': 'application/json',
-      'Authorization': `Bearer ${idToken.rawIdToken}`
     },
     body: JSON.stringify(data)
   })

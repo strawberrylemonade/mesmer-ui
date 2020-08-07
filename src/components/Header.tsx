@@ -37,14 +37,14 @@ const Header: React.FC = () => {
               <button onClick={() => { setDropDownState(dropDownState === DropDownState.Open ? DropDownState.Closed : DropDownState.Open) }} className="flex text-sm border-2 border-transparent rounded-full focus:outline-none focus:border-gray-300 transition duration-150 ease-in-out">
               <div className="h-10 w-10 rounded-full bg-mesmer-300 flex items-center justify-center">
                 <h3 className="text-lg font-bold text-mesmer-600">
-                  { user.name.slice(0, 1) }
+                  
                 </h3>
               </div>
               </button>
             </div>
             <div className={`z-10 origin-top-right absolute right-0 mt-2 w-48 rounded-md shadow-lg ${dropDownState === DropDownState.Closed ? 'hidden' : ''}`}>
               <div className="py-1 rounded-md bg-white shadow-xs">
-                <div onClick={() => { auth.logout() }} className="block px-4 py-2 text-sm leading-5 text-gray-700 hover:bg-gray-100 focus:outline-none focus:bg-gray-100 transition duration-150 ease-in-out cursor-pointer">Sign out</div>
+                <div onClick={() => {  }} className="block px-4 py-2 text-sm leading-5 text-gray-700 hover:bg-gray-100 focus:outline-none focus:bg-gray-100 transition duration-150 ease-in-out cursor-pointer">Sign out</div>
               </div>
             </div>
           </div>
@@ -65,17 +65,15 @@ const Header: React.FC = () => {
           <div className="flex-shrink-0">
             <div className="h-10 w-10 rounded-full bg-mesmer-300 flex items-center justify-center">
               <h3 className="text-lg font-bold text-mesmer-600">
-                { user.name.slice(0, 1) }
+                
               </h3>
             </div>
           </div>
           <div className="ml-3">
-            <div className="text-base font-medium leading-6 text-gray-800">{ user.name }</div>
-            <div className="text-sm font-medium leading-5 text-gray-500">{ user.userName }</div>
           </div>
         </div>
         <div className="mt-3">
-          <div onClick={() => { auth.logout() }} className="mt-1 block px-4 py-2 text-base font-medium text-gray-500 hover:text-gray-800 hover:bg-gray-100 focus:outline-none focus:text-gray-800 focus:bg-gray-100 transition duration-150 ease-in-out cursor-pointer">Sign out</div>
+          <div onClick={() => {  }} className="mt-1 block px-4 py-2 text-base font-medium text-gray-500 hover:text-gray-800 hover:bg-gray-100 focus:outline-none focus:text-gray-800 focus:bg-gray-100 transition duration-150 ease-in-out cursor-pointer">Sign out</div>
         </div>
       </div>
     </div>
