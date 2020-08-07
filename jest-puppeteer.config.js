@@ -1,8 +1,7 @@
 module.exports = {
   launch: {
-    headless: false,
-    args: ['--no-sandbox', '--disable-setuid-sandbox']
-  },
+    headless: true
+    },
   server: {
     command: 'npm start',
     port: 3000,
