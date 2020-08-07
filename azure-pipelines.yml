@@ -18,7 +18,7 @@ steps:
     npm install
   displayName: '[NPM] Installing dependencies'
 - script: |
-    echo "SKIP_PREFLIGHT_CHECK=true" > .env
+    echo -e "SKIP_PREFLIGHT_CHECK=true\nPERCY_TOKEN=4f09e89203898136012a2e6eaca9c30e534123526e497d172aebed5ea158da05" > .env
   displayName: '[General] Setting build variables'
 - script: |
     npm run test:integration
