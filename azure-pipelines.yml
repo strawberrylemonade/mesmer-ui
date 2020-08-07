@@ -18,7 +18,7 @@ steps:
     npm install
   displayName: '[NPM] Installing dependencies'
 - script: |
-    SKIP_PREFLIGHT_CHECK=true
+    echo "SKIP_PREFLIGHT_CHECK=true" > .env
   displayName: '[General] Setting build variables'
 - script: |
     npm run build
