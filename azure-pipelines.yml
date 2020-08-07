@@ -21,6 +21,9 @@ steps:
     echo "SKIP_PREFLIGHT_CHECK=true" > .env
   displayName: '[General] Setting build variables'
 - script: |
+    npm run test:integration
+  displayName: '[NPM] Running UI E2E Tests'
+- script: |
     npm run build
   displayName: '[NPM] Building UI'
 - task: ArchiveFiles@2
