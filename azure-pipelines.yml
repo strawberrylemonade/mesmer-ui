@@ -18,6 +18,9 @@ steps:
     npm install
   displayName: '[NPM] Installing dependencies'
 - script: |
+    SKIP_PREFLIGHT_CHECK=true
+  displayName: '[General] Setting build variables'
+- script: |
     npm run build
   displayName: '[NPM] Building UI'
 - task: ArchiveFiles@2
