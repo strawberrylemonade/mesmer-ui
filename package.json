@@ -40,6 +40,7 @@
     "tailwind:css": "tailwind build src/tailwind.css -c tailwind.config.js -o src/index.css",
     "build": "npm run tailwind:css && react-scripts build",
     "test": "react-scripts test",
+    "test:integration": "npx jest -c jest.config.js",
     "eject": "react-scripts eject"
   },
   "eslintConfig": {
@@ -59,9 +60,9 @@
   },
   "devDependencies": {
     "@types/puppeteer": "^3.0.1",
+    "jest": "^26.2.2",
     "jest-puppeteer": "^4.4.0",
     "puppeteer": "^5.2.1",
     "tailwindcss": "^1.2.0"
   }
-
 }

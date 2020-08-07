@@ -22,8 +22,8 @@ const ProjectCard: React.FC<ProjectCardProps> = ({ project }) => {
   }, [project])
 
   return <>
-    <div className="flex items-center my-2">
-        <h1 className="text-lg leading-6 font-medium gray-600">{project.name}</h1>
+    <div className="flex items-center my-2" id={`project-${project.id}`}>
+        <h1 className="text-lg leading-6 font-medium gray-600" >{project.name}</h1>
         <ProjectActions project={project}></ProjectActions>
     </div>
     <div className="grid grid-cols-1 lg:grid-cols-4 md:grid-cols-3 sm:grid-cols-2 gap-4 mb-5 pb-4">

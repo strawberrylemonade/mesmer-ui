@@ -98,7 +98,7 @@ const EnvironmentCard: React.FC<EnvironmentCardProps> = ({ environment, project 
     })()
   }, [environment])
 
-  return <div className="bg-white shadow overflow-hidden sm:rounded-lg h-fit">
+  return <div id={`environment-${environment?.environmentId}`} className="bg-white shadow overflow-hidden sm:rounded-lg h-fit">
     <div className={`bg-${getBackgroundForStatus(environmentStatus)} px-4 py-4 border-b border-gray-200`}>
       <div className="flex justify-between">
         <h3 className="text-md leading-6 font-medium gray-600">

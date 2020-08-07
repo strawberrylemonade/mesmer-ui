@@ -1,9 +1,11 @@
 module.exports = {
   launch: {
-    headless: process.env.HEADLESS !== 'false',
+    headless: true,
   },
   server: {
     command: 'npm start',
     port: 3000,
+    launchTimeout: 20000,
+    debug: false
   },
 }

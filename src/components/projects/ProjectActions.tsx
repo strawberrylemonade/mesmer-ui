@@ -30,7 +30,7 @@ const ProjectActions: React.FC<ProjectActionsProps> = ({ project }) => {
       { droppedDown ? <div className="origin-top-left absolute left-0 mt-2 w-56 rounded-md shadow-lg">
         <div className="rounded-md bg-white shadow-xs">
           <div className="p-2">
-            <div onClick={() => setNewEnvironmentModal(true)} className="flex px-4 py-2 text-sm font-medium leading-5 text-gray-700 rounded-md hover:bg-gray-100 hover:text-gray-900 focus:outline-none focus:bg-gray-100 focus:text-gray-900 cursor-pointer">
+            <div id="new-environment" onClick={() => setNewEnvironmentModal(true)} className="flex px-4 py-2 text-sm font-medium leading-5 text-gray-700 rounded-md hover:bg-gray-100 hover:text-gray-900 focus:outline-none focus:bg-gray-100 focus:text-gray-900 cursor-pointer">
               <TiPlus className="flex-shrink-0 -ml-1 mr-3 h-5 w-5 text-gray-400 group-hover:text-gray-500 group-focus:text-gray-500 transition ease-in-out duration-150" />
               <span className="truncate">Create Environment</span>
             </div>

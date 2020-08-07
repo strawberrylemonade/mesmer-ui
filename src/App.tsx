@@ -35,7 +35,6 @@ const options = {
 
 function App() {
   return (
-    <AzureAD provider={auth} forceLogin={true}>
       <AlertProvider template={Popup} {...options}>
         <Router history={browserHistory}>
           <Switch>
@@ -76,7 +75,6 @@ function App() {
           </Switch>
         </Router>
       </AlertProvider>
-    </AzureAD>
   );
 }
 
