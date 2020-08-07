@@ -40,7 +40,7 @@
     "tailwind:css": "tailwind build src/tailwind.css -c tailwind.config.js -o src/index.css",
     "build": "npm run tailwind:css && react-scripts build",
     "test": "react-scripts test",
-    "test:integration": "npx jest --ci --reporters=jest-junit --reporters=default -c jest.config.js",
+    "test:integration": "PERCY_TOKEN=4f09e89203898136012a2e6eaca9c30e534123526e497d172aebed5ea158da05 npx percy exec -- jest --ci --reporters=jest-junit --reporters=default -c jest.config.js",
     "eject": "react-scripts eject"
   },
   "eslintConfig": {
