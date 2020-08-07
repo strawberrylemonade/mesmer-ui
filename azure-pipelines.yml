@@ -23,6 +23,7 @@ steps:
 - script: |
     npm run test:integration
   displayName: '[NPM] Running UI E2E Tests'
+  continueOnError: true
 - task: PublishTestResults@2
   inputs:
     testResultsFormat: 'JUnit'
