@@ -48,7 +48,7 @@ const Home: React.FC<HomeProps> = () => {
         <div className="mt-2 md:flex md:items-center md:justify-between">
           <div className="flex-1 min-w-0">
             <h2 className="text-2xl font-bold leading-7 text-white sm:text-3xl sm:leading-9 sm:truncate">
-              Welcome back!
+              Welcome!
             </h2>
           </div>
           <img className="-mb-24 -mt-16 z-0 hidden md:block ease-in-out animation-1s animation-once animation-fadeIn select-none" src={HomeDecoration}></img>
